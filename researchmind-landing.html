@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nexus — AI Research Intelligence</title>
+  <title>ResearchMind — AI Research Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -84,25 +84,33 @@
     ============================ */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 900;
-      padding: 18px 56px;
+      padding: 14px 48px;
       display: flex; align-items: center; justify-content: space-between;
-      transition: background .35s, border-color .35s;
+      background: rgba(3,3,9,0.75);
+      backdrop-filter: blur(20px) saturate(1.4);
+      border-bottom: 1px solid rgba(255,255,255,0.055);
+      transition: background .35s;
     }
     nav.scrolled {
-      background: rgba(3,3,9,0.82);
-      backdrop-filter: blur(24px) saturate(1.5);
-      border-bottom: 1px solid var(--border-s);
+      background: rgba(3,3,9,0.92);
+      border-bottom-color: var(--border-s);
+    }
+    /* Thin divider between logo and links */
+    .nav-div {
+      width: 1px; height: 22px;
+      background: rgba(255,255,255,0.1);
+      margin: 0 8px;
     }
     .logo {
       display: flex; align-items: center; gap: 11px;
       font-family: var(--dsp); font-weight: 800; font-size: 22px; letter-spacing: -.02em;
     }
     .logo-mark {
-      width: 38px; height: 38px; border-radius: 11px;
-      background: linear-gradient(135deg, var(--v), var(--c));
+      width: 54px; height: 54px; border-radius: 14px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 20px; box-shadow: 0 0 20px var(--vg);
+      overflow: hidden; filter: drop-shadow(0 0 14px var(--vg));
     }
+    .logo-mark img { width: 60px; height: 60px; object-fit: contain; }
     .nav-links { display: flex; gap: 36px; list-style: none; }
     .nav-links a { color: var(--tm); font-size: 15px; font-weight: 500; transition: color .2s; }
     .nav-links a:hover { color: var(--t); }
@@ -142,6 +150,8 @@
       min-height: 100vh;
       display: flex; align-items: center;
       position: relative; overflow: hidden;
+      padding-top: 96px;   /* push content below fixed nav */
+      padding-bottom: 48px;
     }
     #hero-canvas {
       position: absolute; inset: 0;
@@ -241,19 +251,24 @@
       gap: 16px;
     }
     .bc {
-      background: var(--surface);
-      border: 1px solid var(--border-s);
+      background: linear-gradient(135deg, rgba(255,255,255,0.038) 0%, rgba(255,255,255,0.018) 100%);
+      border: 1px solid rgba(255,255,255,0.075);
       border-radius: var(--rl); padding: 38px;
       position: relative; overflow: hidden;
-      transition: background .3s, border-color .3s, transform .3s;
+      transition: background .3s, border-color .3s, box-shadow .3s, transform .25s;
     }
+    /* Shimmer line at top on hover */
     .bc::after {
       content: '';
       position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--v), transparent);
-      opacity: 0; transition: opacity .3s;
+      background: linear-gradient(90deg, transparent 0%, var(--vl) 40%, var(--c) 60%, transparent 100%);
+      opacity: 0; transition: opacity .35s;
     }
-    .bc:hover { background: var(--surface-h); border-color: var(--border); }
+    .bc:hover {
+      background: linear-gradient(135deg, rgba(139,92,246,0.06) 0%, rgba(34,211,238,0.03) 100%);
+      border-color: rgba(139,92,246,0.28);
+      box-shadow: 0 0 0 1px rgba(139,92,246,0.08), 0 8px 32px rgba(0,0,0,0.3);
+    }
     .bc:hover::after { opacity: 1; }
 
     .bc-7  { grid-column: span 7; }
@@ -261,14 +276,40 @@
     .bc-4  { grid-column: span 4; }
 
     .ci {
-      width: 54px; height: 54px; border-radius: 15px;
+      width: 56px; height: 56px; border-radius: 16px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 26px; margin-bottom: 22px;
+      font-size: 26px; margin-bottom: 24px;
+      position: relative; flex-shrink: 0;
     }
-    .ci-v  { background: rgba(139,92,246,.15); }
-    .ci-c  { background: rgba(34,211,238,.12); }
-    .ci-em { background: rgba(16,185,129,.12); }
-    .ci-am { background: rgba(251,191,36,.1); }
+    /* Vibrant, on-brand icon boxes with border + soft glow */
+    .ci-v  {
+      background: rgba(139,92,246,.16);
+      border: 1px solid rgba(139,92,246,.38);
+      box-shadow: 0 0 18px rgba(139,92,246,.18), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .ci-c  {
+      background: rgba(34,211,238,.12);
+      border: 1px solid rgba(34,211,238,.32);
+      box-shadow: 0 0 18px rgba(34,211,238,.14), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    /* amber — used for ⚡ Smart Summaries (energy/lightning) */
+    .ci-am {
+      background: rgba(251,191,36,.12);
+      border: 1px solid rgba(251,191,36,.32);
+      box-shadow: 0 0 18px rgba(251,191,36,.12), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    /* blue — used for 🔗 Citations (links/connections) */
+    .ci-bl {
+      background: rgba(59,130,246,.14);
+      border: 1px solid rgba(59,130,246,.32);
+      box-shadow: 0 0 18px rgba(59,130,246,.12), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    /* emerald — kept for future use */
+    .ci-em {
+      background: rgba(16,185,129,.12);
+      border: 1px solid rgba(16,185,129,.3);
+      box-shadow: 0 0 18px rgba(16,185,129,.1), inset 0 1px 0 rgba(255,255,255,.06);
+    }
 
     .ct { font-family: var(--dsp); font-size: 21px; font-weight: 700; margin-bottom: 10px; }
     .cd { font-size: 15px; color: var(--tm); line-height: 1.65; }
@@ -310,11 +351,17 @@
     }
     .step {
       text-align: center; padding: 52px 36px;
-      background: var(--surface); border: 1px solid var(--border-s);
+      background: linear-gradient(160deg, rgba(255,255,255,.042) 0%, rgba(255,255,255,.018) 100%);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: var(--rx); position: relative;
-      transition: all .3s;
+      transition: all .35s;
     }
-    .step:hover { background: var(--surface-h); border-color: var(--border); transform: translateY(-4px); }
+    .step:hover {
+      background: linear-gradient(160deg, rgba(139,92,246,.07) 0%, rgba(34,211,238,.03) 100%);
+      border-color: rgba(139,92,246,.3);
+      box-shadow: 0 0 0 1px rgba(139,92,246,.08), 0 16px 48px rgba(0,0,0,.35);
+      transform: translateY(-6px);
+    }
     .step-num {
       display: inline-flex; align-items: center; justify-content: center;
       width: 58px; height: 58px; border-radius: 50%;
@@ -344,11 +391,17 @@
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
     }
     .tc {
-      background: var(--surface); border: 1px solid var(--border-s);
+      background: linear-gradient(160deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.02) 100%);
+      border: 1px solid rgba(255,255,255,0.08);
       border-radius: var(--r); padding: 32px 24px; text-align: center;
       transition: all .3s;
     }
-    .tc:hover { border-color: var(--border); transform: translateY(-5px); background: var(--surface-h); }
+    .tc:hover {
+      border-color: rgba(139,92,246,.35);
+      transform: translateY(-6px);
+      background: linear-gradient(160deg, rgba(139,92,246,.07) 0%, rgba(34,211,238,.03) 100%);
+      box-shadow: 0 12px 40px rgba(0,0,0,.3);
+    }
     .tc-icon { font-size: 40px; margin-bottom: 14px; }
     .tc-name { font-family: var(--dsp); font-weight: 700; font-size: 17px; margin-bottom: 6px; }
     .tc-desc { font-size: 13px; color: var(--ts); line-height: 1.5; }
@@ -422,11 +475,12 @@
     .pricing-hd { text-align: center; margin-bottom: 72px; }
     .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .pc {
-      background: var(--surface); border: 1px solid var(--border-s);
+      background: linear-gradient(160deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.016) 100%);
+      border: 1px solid rgba(255,255,255,.08);
       border-radius: var(--rx); padding: 44px 38px;
-      position: relative; transition: all .3s;
+      position: relative; transition: all .35s;
     }
-    .pc:hover { transform: translateY(-4px); }
+    .pc:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.35); border-color: rgba(139,92,246,.22); }
     .pc-feat {
       border-color: var(--border);
       background: linear-gradient(135deg, rgba(139,92,246,.08), rgba(34,211,238,.04));
@@ -514,9 +568,10 @@
 <!-- ===================== NAV ===================== -->
 <nav id="navbar">
   <a href="#" class="logo">
-    <div class="logo-mark">⬡</div>
-    Nexus
+    <div class="logo-mark"><img src="logo.png" alt="ResearchMind logo" /></div>
+    ResearchMind
   </a>
+  <div class="nav-div"></div>
   <ul class="nav-links">
     <li><a href="#features">Features</a></li>
     <li><a href="#how-it-works">How it works</a></li>
@@ -525,7 +580,7 @@
   </ul>
   <div class="nav-end">
     <a href="#" class="btn btn-ghost">Sign in</a>
-    <a href="nexus-mvp/static/app.html" class="btn btn-primary">Open App →</a>
+    <a href="researchmind-mvp/static/app.html" class="btn btn-primary">Open App →</a>
   </div>
 </nav>
 
@@ -542,10 +597,10 @@
         Where<br>Knowledge<br><span class="gtext">Connects.</span>
       </h1>
       <p class="hero-sub" id="hsub">
-        Nexus uses two specialised AI agents to build living knowledge graphs from your research papers — revealing hidden connections and generating novel hypotheses automatically.
+        ResearchMind uses three specialised AI agents to build living knowledge graphs from your research papers — revealing hidden connections and generating novel hypotheses automatically.
       </p>
       <div class="hero-btns" id="hbtns">
-        <a href="nexus-mvp/static/app.html" class="btn btn-primary btn-lg">Start for free — no CC needed</a>
+        <a href="researchmind-mvp/static/app.html" class="btn btn-primary btn-lg">Start for free — no CC needed</a>
         <a href="#how-it-works" class="btn btn-ghost btn-lg">See how it works ↓</a>
       </div>
       <div class="hero-stats" id="hstats">
@@ -560,7 +615,7 @@
         </div>
         <div class="stat-sep"></div>
         <div>
-          <div class="stat-val">2</div>
+          <div class="stat-val">3</div>
           <div class="stat-lbl">AI agents, always active</div>
         </div>
       </div>
@@ -604,7 +659,7 @@
         <div class="sec-label rev">Features</div>
         <h2 class="sec-title rev">Research intelligence,<br>fully automated.</h2>
       </div>
-      <p class="sec-sub rev">Two AI agents work in concert to transform how scientists discover and synthesise knowledge.</p>
+      <p class="sec-sub rev">Three AI agents work in concert to transform how scientists discover, synthesise, and critically evaluate knowledge.</p>
     </div>
 
     <div class="bento stg">
@@ -612,7 +667,7 @@
       <div class="bc bc-7">
         <div class="ci ci-v">🕸️</div>
         <h3 class="ct">Living Knowledge Graph</h3>
-        <p class="cd">Your entire library becomes an interactive graph. Nexus maps concepts, authors, and findings across hundreds of papers in seconds — and updates it in real time.</p>
+        <p class="cd">Your entire library becomes an interactive graph. ResearchMind maps concepts, authors, and findings across hundreds of papers in seconds — and updates it in real time.</p>
         <div class="card-visual">
           <canvas class="mini-canvas" id="mini-canvas"></canvas>
         </div>
@@ -634,16 +689,24 @@
 
       <!-- Card 3 – Summaries -->
       <div class="bc bc-4">
-        <div class="ci ci-em">⚡</div>
+        <div class="ci ci-am">⚡</div>
         <h3 class="ct">Smart Summaries</h3>
         <p class="cd">Get structured summaries of any paper in under 10 seconds: methodology, key findings, limitations — all extracted automatically.</p>
+        <div style="margin-top:20px;display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);color:#fbbf24;font-weight:700;font-family:var(--mono)">10 sec</span>
+          <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);color:#fbbf24;font-weight:700;font-family:var(--mono)">Structured JSON</span>
+        </div>
       </div>
 
       <!-- Card 4 – Citations -->
       <div class="bc bc-4">
-        <div class="ci ci-am">🔗</div>
+        <div class="ci ci-bl">🔗</div>
         <h3 class="ct">Citation Intelligence</h3>
         <p class="cd">Detect citation gaps, find foundational papers you may have missed, and export to BibTeX, APA, or MLA with one click.</p>
+        <div style="margin-top:20px;display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#60a5fa;font-weight:700;font-family:var(--mono)">BibTeX</span>
+          <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#60a5fa;font-weight:700;font-family:var(--mono)">APA · MLA</span>
+        </div>
       </div>
 
       <!-- Card 5 – Chat -->
@@ -651,6 +714,10 @@
         <div class="ci ci-v">💬</div>
         <h3 class="ct">Library Chat</h3>
         <p class="cd">Ask questions across your whole library. Get answers grounded in exact papers and page numbers — not hallucinations.</p>
+        <div style="margin-top:20px;display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.28);color:var(--vl);font-weight:700;font-family:var(--mono)">Grounded</span>
+          <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.28);color:var(--vl);font-weight:700;font-family:var(--mono)">With citations</span>
+        </div>
       </div>
     </div>
   </div>
@@ -661,20 +728,21 @@
   <div class="container">
     <div class="hiw-hd">
       <div class="sec-label rev">How it works</div>
-      <h2 class="sec-title rev" style="max-width:560px;margin:0 auto;">Two agents.<br>Infinite insights.</h2>
+      <h2 class="sec-title rev" style="max-width:560px;margin:0 auto;">Three agents.<br>Infinite insights.</h2>
     </div>
     <div class="steps stg">
       <div class="step">
         <div class="step-num sn1">1</div>
         <h3 class="step-title">Upload your library</h3>
-        <p class="step-desc">Drop PDFs or paste arXiv links. Nexus ingests papers of any length, any domain — and extracts structured knowledge within seconds.</p>
+        <p class="step-desc">Drop PDFs or paste arXiv links. ResearchMind ingests papers of any length, any domain — and extracts structured knowledge within seconds.</p>
         <div class="agent-tag at1">⬡ Paper Analyzer Agent</div>
       </div>
       <div class="step">
         <div class="step-num sn2">2</div>
         <h3 class="step-title">Agents analyse &amp; connect</h3>
-        <p class="step-desc">Agent 1 parses each paper. Agent 2 finds thematic bridges, conflicting findings, and unexplored intersections across your entire corpus.</p>
+        <p class="step-desc">Agent 1 parses each paper. Agent 2 finds thematic bridges and generates hypotheses. Agent 3 critiques quality, scores reproducibility, and flags weaknesses.</p>
         <div class="agent-tag at2">◈ Synthesis Agent</div>
+        <div class="agent-tag at3">🔬 Paper Critic Agent</div>
       </div>
       <div class="step">
         <div class="step-num sn3">3</div>
@@ -698,7 +766,7 @@
         <div class="dot dr"></div>
         <div class="dot dy"></div>
         <div class="dot dg"></div>
-        <div class="mockup-url">app.nexus.ai/research/knowledge-graph</div>
+        <div class="mockup-url">app.researchmind.ai/research/knowledge-graph</div>
       </div>
       <div class="mockup-body">
         <div class="mockup-sidebar">
@@ -728,6 +796,8 @@
             <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--c);">
               <div style="width:7px;height:7px;background:var(--c);border-radius:50%;animation:blink 2.5s infinite;"></div>
               Synthesis Agent — active
+              <br><span style="color:var(--am);">●</span>
+              Paper Critic — active
             </div>
           </div>
         </div>
@@ -768,7 +838,7 @@
     <div class="tech-hd">
       <div class="sec-label rev">Technology</div>
       <h2 class="sec-title rev">Built on cutting-edge,<br>open-source AI</h2>
-      <p class="sec-sub rev" style="margin:12px auto 0;text-align:center;">Nexus combines the fastest inference layer available with a custom multi-agent orchestration pipeline — and a free tier that never expires.</p>
+      <p class="sec-sub rev" style="margin:12px auto 0;text-align:center;">ResearchMind combines the fastest inference layer available with a custom multi-agent orchestration pipeline — and a free tier that never expires.</p>
     </div>
     <div class="tech-grid stg">
       <div class="tc">
@@ -873,9 +943,9 @@
   <div class="cta-glow"></div>
   <div class="container" style="position:relative;z-index:1;">
     <h2 class="cta-title rev">Ready to map<br><span class="gtext">your knowledge universe?</span></h2>
-    <p class="cta-sub rev">Join 12,400 researchers already using Nexus — free forever.</p>
+    <p class="cta-sub rev">Join 12,400 researchers already using ResearchMind — free forever.</p>
     <div class="cta-actions rev">
-      <a href="nexus-mvp/static/app.html" class="btn btn-primary btn-lg" style="font-size:18px;padding:20px 52px;">Launch Nexus — it's free</a>
+      <a href="researchmind-mvp/static/app.html" class="btn btn-primary btn-lg" style="font-size:18px;padding:20px 52px;">Launch ResearchMind — it's free</a>
       <a href="#features" class="btn btn-ghost btn-lg">Learn more</a>
     </div>
   </div>
@@ -887,20 +957,49 @@
     <div class="footer-in">
       <div>
         <a href="#" class="logo" style="margin-bottom:10px;display:inline-flex;">
-          <div class="logo-mark">⬡</div>
-          Nexus
+          <div class="logo-mark"><img src="logo.png" alt="ResearchMind logo" /></div>
+          ResearchMind
         </a>
-        <div class="footer-cp">© 2026 Nexus AI, SRL &nbsp;·&nbsp; AI Research Intelligence &nbsp;·&nbsp; Built for MPA 2026</div>
+        <div class="footer-cp">© 2026 ResearchMind AI, SRL &nbsp;·&nbsp; AI Research Intelligence &nbsp;·&nbsp; Built for MPA 2026</div>
       </div>
       <div class="footer-links">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Blog</a>
-        <a href="https://github.com" target="_blank">GitHub</a>
-        <a href="mailto:hello@nexus.ai">Contact</a>
+        <a href="researchmind-mvp/static/app.html">MVP App</a>
+        <a href="researchmind-business.docx" download>Business Doc</a>
+        <a href="researchmind-pitch.pptx" download>Pitch Deck</a>
+        <a href="mailto:hello@researchmind.ai">Contact</a>
       </div>
     </div>
   </div>
+<!-- ===================== MPA DELIVERABLES ===================== -->
+<section style="padding:64px 0;background:rgba(139,92,246,0.04);border-top:1px solid rgba(139,92,246,0.12);position:relative;z-index:1;">
+  <div class="container">
+    <div class="sec-label" style="text-align:center;margin-bottom:10px;">MPA 2026 — Project Deliverables</div>
+    <h2 style="font-family:var(--dsp);font-size:28px;font-weight:800;text-align:center;margin-bottom:36px;letter-spacing:-.02em;">All deliverables in one place</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:900px;margin:0 auto;">
+      <a href="researchmind-mvp/static/app.html" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 20px;background:rgba(255,255,255,0.035);border:1px solid rgba(139,92,246,0.25);border-radius:16px;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='rgba(139,92,246,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.035)'">
+        <span style="font-size:28px;">⚡</span>
+        <span style="font-family:var(--dsp);font-weight:700;font-size:14px;color:var(--t);">MVP App</span>
+        <span style="font-size:11px;color:var(--ts);">3 AI Agents · Live demo</span>
+      </a>
+      <a href="researchmind-business.docx" download style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 20px;background:rgba(255,255,255,0.035);border:1px solid rgba(139,92,246,0.25);border-radius:16px;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='rgba(139,92,246,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.035)'">
+        <span style="font-size:28px;">📄</span>
+        <span style="font-family:var(--dsp);font-weight:700;font-size:14px;color:var(--t);">Business Foundation</span>
+        <span style="font-size:11px;color:var(--ts);">SWOT · Gantt · Lean Canvas</span>
+      </a>
+      <a href="#" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 20px;background:rgba(255,255,255,0.035);border:1px solid rgba(139,92,246,0.25);border-radius:16px;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='rgba(139,92,246,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.035)'">
+        <span style="font-size:28px;">🌐</span>
+        <span style="font-family:var(--dsp);font-weight:700;font-size:14px;color:var(--t);">Landing Page</span>
+        <span style="font-size:11px;color:var(--ts);">You are here</span>
+      </a>
+      <a href="researchmind-pitch.pptx" download style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 20px;background:rgba(255,255,255,0.035);border:1px solid rgba(139,92,246,0.25);border-radius:16px;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='rgba(139,92,246,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.035)'">
+        <span style="font-size:28px;">🎯</span>
+        <span style="font-family:var(--dsp);font-weight:700;font-size:14px;color:var(--t);">Pitch Deck</span>
+        <span style="font-size:11px;color:var(--ts);">10 slides · Seed round</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 </footer>
 
 <!-- ===================== SCRIPTS ===================== -->
