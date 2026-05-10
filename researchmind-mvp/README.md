@@ -160,7 +160,7 @@ MPA/
 | Teodor Mihailescu | Full-Stack Developer & AI Engineer |
 | Anastasia Sandu | Frontend Developer & UX Designer |
 | Selena Hurloi | Product Manager & Business Analyst |
-| Adelina Danescu | Backend Developer & QA Engineer |
+| Adela Danescu | Backend Developer & QA Engineer |
 
 MPA 2026 · University of Bucharest · Faculty of Mathematics and Computer Science
 

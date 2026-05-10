@@ -23,10 +23,11 @@ Then open: http://localhost:8000
 
 from __future__ import annotations
 
-import os, json, uuid
+import os, json, uuid, io, re
 from datetime import datetime
 from typing import Optional, List, Dict
 
+import httpx
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -90,6 +91,9 @@ class PaperInput(BaseModel):
     text: str
     title: str = "Untitled Paper"
 
+class URLInput(BaseModel):
+    url: str
+
 class SynthesisRequest(BaseModel):
     focus: str = ""        # optional focus query for the synthesis
 
@@ -123,7 +127,7 @@ async def paper_analyzer_agent(text: str, title: str) -> dict:  # AGENT 1
     Output: structured knowledge JSON
     """
     groq = get_client()
-    truncated = text[:5000]
+    truncated = text[:9000]   # more context → richer extraction
 
     system_prompt = """You are the Paper Analyzer Agent in the ResearchMind research intelligence system.
 Your sole job is to parse academic papers and extract structured knowledge.
@@ -182,14 +186,19 @@ async def synthesis_agent(papers: List[dict], focus: str = "") -> dict:  # AGENT
     """
     groq = get_client()
 
-    # Build compact representation for the prompt
+    # Build rich representation — give Agent 2 everything Agent 1 extracted
     summaries = [
         {
-            "title":           p.get("title", "Untitled"),
-            "domain":          p.get("research_domain", "Unknown"),
-            "key_concepts":    p.get("key_concepts", [])[:5],
-            "main_findings":   p.get("main_findings", [])[:3],
-            "methodology":     p.get("methodology", "N/A"),
+            "title":              p.get("title", "Untitled"),
+            "domain":             p.get("research_domain", "Unknown"),
+            "summary":            p.get("summary", ""),
+            "key_concepts":       p.get("key_concepts", [])[:8],
+            "methodology":        p.get("methodology", "N/A"),
+            "datasets_used":      p.get("datasets_used", []),
+            "evaluation_metrics": p.get("evaluation_metrics", []),
+            "main_findings":      p.get("main_findings", [])[:5],
+            "limitations":        p.get("limitations", [])[:3],
+            "keywords":           p.get("keywords", [])[:6],
         }
         for p in papers
     ]
@@ -243,7 +252,7 @@ Paper analyses:
         ],
         response_format={"type": "json_object"},
         temperature=0.62,
-        max_tokens=1800,
+        max_tokens=2800,
     )
 
     return json.loads(response.choices[0].message.content)
@@ -366,6 +375,79 @@ async def health():
     }
 
 
+@app.post("/api/fetch-paper")
+async def fetch_paper(payload: URLInput):
+    """
+    Fetch a paper from a public URL (PDF or HTML) and extract its text.
+    Supports direct PDF URLs (e.g. ACL Anthology, arXiv) and HTML pages.
+    """
+    url = payload.url.strip()
+    if not url.startswith("http"):
+        raise HTTPException(400, "URL must start with http:// or https://")
+
+    try:
+        async with httpx.AsyncClient(
+            follow_redirects=True,
+            timeout=30,
+            headers={"User-Agent": "ResearchMind/1.0 (academic paper fetcher)"},
+        ) as client:
+            resp = await client.get(url)
+            resp.raise_for_status()
+    except httpx.HTTPError as e:
+        raise HTTPException(502, f"Could not fetch URL: {e}")
+
+    content_type = resp.headers.get("content-type", "")
+    is_pdf = "pdf" in content_type or url.lower().endswith(".pdf")
+
+    extracted_text = ""
+    detected_title = url.split("/")[-1].replace(".pdf", "").replace("-", " ").replace("_", " ").title()
+
+    if is_pdf:
+        try:
+            from pypdf import PdfReader
+            reader = PdfReader(io.BytesIO(resp.content))
+            pages = []
+            for page in reader.pages[:25]:          # cap at 25 pages
+                t = page.extract_text() or ""
+                pages.append(t)
+            extracted_text = "\n".join(pages)
+
+            # Try to grab a better title from first-page text
+            first_page = pages[0] if pages else ""
+            lines = [l.strip() for l in first_page.splitlines() if l.strip()]
+            if lines:
+                detected_title = lines[0][:120]   # first non-empty line is usually the title
+
+        except Exception as e:
+            raise HTTPException(500, f"PDF extraction failed: {e}. Install pypdf: pip install pypdf")
+    else:
+        # HTML — strip tags, grab visible text
+        try:
+            from bs4 import BeautifulSoup
+            soup = BeautifulSoup(resp.text, "html.parser")
+            for tag in soup(["script", "style", "nav", "footer", "header", "aside"]):
+                tag.decompose()
+            extracted_text = soup.get_text(separator="\n", strip=True)
+            title_tag = soup.find("title")
+            if title_tag:
+                detected_title = title_tag.get_text(strip=True)[:120]
+        except Exception as e:
+            raise HTTPException(500, f"HTML extraction failed: {e}")
+
+    extracted_text = re.sub(r"\n{3,}", "\n\n", extracted_text).strip()
+
+    if len(extracted_text) < 100:
+        raise HTTPException(400, "Could not extract meaningful text from this URL. Try pasting the text directly.")
+
+    return {
+        "success": True,
+        "url": url,
+        "detected_title": detected_title,
+        "text": extracted_text[:12000],   # cap; Agent 1 uses first 9000
+        "char_count": len(extracted_text),
+    }
+
+
 @app.post("/api/analyze")
 async def analyze_paper(payload: PaperInput):
     """
@@ -480,6 +562,22 @@ async def logo():
     if os.path.exists(logo_path):
         return FileResponse(logo_path, media_type="image/png")
     raise HTTPException(404, "logo.png not found in parent directory")
+
+# Favicon
+@app.get("/favicon.svg", include_in_schema=False)
+async def favicon_svg():
+    p = os.path.join(os.path.dirname(__file__), "..", "favicon.svg")
+    if os.path.exists(p):
+        return FileResponse(p, media_type="image/svg+xml")
+    raise HTTPException(404, "favicon.svg not found")
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon_ico():
+    # Redirect .ico requests to the SVG (modern browsers handle SVG favicons)
+    p = os.path.join(os.path.dirname(__file__), "..", "favicon.svg")
+    if os.path.exists(p):
+        return FileResponse(p, media_type="image/svg+xml")
+    raise HTTPException(404, "favicon not found")
 
 # Serve the landing page from the parent folder
 @app.get("/researchmind-landing.html", include_in_schema=False)

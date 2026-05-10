@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ResearchMind — AI Research Intelligence</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate icon" href="/favicon.ico" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -12,819 +14,541 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
   <style>
-    /* ============================
-       DESIGN TOKENS
-    ============================ */
     :root {
-      --bg:           #030309;
-      --bg2:          #08081f;
-      --surface:      rgba(255,255,255,0.035);
-      --surface-h:    rgba(255,255,255,0.065);
-      --border:       rgba(139,92,246,0.18);
-      --border-s:     rgba(255,255,255,0.07);
-
-      --v:            #8b5cf6;
-      --vd:           #6d28d9;
-      --vl:           #a78bfa;
-      --vg:           rgba(139,92,246,0.28);
-      --c:            #22d3ee;
-      --cg:           rgba(34,211,238,0.18);
-      --em:           #10b981;
-
-      --t:            #f8fafc;
-      --tm:           #94a3b8;
-      --ts:           #475569;
-
-      --r:  16px;
-      --rl: 24px;
-      --rx: 36px;
-
-      --dsp: 'Space Grotesk', sans-serif;
-      --bd:  'Inter', sans-serif;
-      --mono:'JetBrains Mono', monospace;
+      --bg:    #030309;
+      --bg2:   #08081f;
+      --sf:    rgba(255,255,255,0.035);
+      --sfh:   rgba(255,255,255,0.065);
+      --bd:    rgba(139,92,246,0.18);
+      --bds:   rgba(255,255,255,0.07);
+      --v:     #8b5cf6;
+      --vd:    #6d28d9;
+      --vl:    #a78bfa;
+      --vg:    rgba(139,92,246,0.28);
+      --c:     #22d3ee;
+      --cg:    rgba(34,211,238,0.18);
+      --am:    #f59e0b;
+      --em:    #10b981;
+      --t:     #f8fafc;
+      --tm:    #94a3b8;
+      --ts:    #475569;
+      --r:     16px;
+      --rl:    24px;
+      --dsp:  'Space Grotesk', sans-serif;
+      --body: 'Inter', sans-serif;
+      --mono: 'JetBrains Mono', monospace;
     }
 
-    /* ============================
-       RESET
-    ============================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--t);
-      font-family: var(--bd);
-      font-size: 16px;
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
-    a { text-decoration: none; color: inherit; }
-    ::selection { background: var(--vg); color: var(--vl); }
+    body { background: var(--bg); color: var(--t); font-family: var(--body); overflow-x: hidden; }
 
-    /* ============================
-       AURORA BLOBS
-    ============================ */
-    .aurora {
-      position: fixed; inset: 0;
-      pointer-events: none; z-index: 0;
-      overflow: hidden;
-    }
-    .ab {
-      position: absolute; border-radius: 50%;
-      filter: blur(90px); opacity: 0.12;
-    }
-    .ab1 { width: 700px; height: 700px; background: radial-gradient(circle, var(--v) 0%, transparent 70%); top: -250px; left: -150px; animation: drift1 22s ease-in-out infinite alternate; }
-    .ab2 { width: 550px; height: 550px; background: radial-gradient(circle, var(--c) 0%, transparent 70%); top: 30%;  right: -180px; animation: drift2 18s ease-in-out infinite alternate; }
-    .ab3 { width: 450px; height: 450px; background: radial-gradient(circle, #4f46e5 0%, transparent 70%); bottom: 5%; left: 25%; animation: drift3 26s ease-in-out infinite alternate; }
-    @keyframes drift1 { 0%{transform:translate(0,0) scale(1)}  50%{transform:translate(40px,-50px) scale(1.08)} 100%{transform:translate(-20px,30px) scale(0.96)} }
-    @keyframes drift2 { 0%{transform:translate(0,0) scale(1)}  50%{transform:translate(-30px,40px) scale(1.12)} 100%{transform:translate(25px,-35px) scale(0.94)} }
-    @keyframes drift3 { 0%{transform:translate(0,0) scale(1)}  50%{transform:translate(50px,20px) scale(1.05)} 100%{transform:translate(-40px,-30px) scale(1.1)} }
+    /* ── Aurora ── */
+    .aurora { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .ab { position: absolute; border-radius: 50%; filter: blur(120px); opacity: .12; }
+    .ab1 { width: 900px; height: 900px; background: radial-gradient(circle, #6d28d9, transparent 70%); top: -200px; left: -300px; animation: drift1 22s ease-in-out infinite alternate; }
+    .ab2 { width: 700px; height: 700px; background: radial-gradient(circle, #0891b2, transparent 70%); bottom: -150px; right: -200px; animation: drift2 18s ease-in-out infinite alternate; }
+    .ab3 { width: 500px; height: 500px; background: radial-gradient(circle, #7c3aed, transparent 70%); top: 40%; left: 55%; animation: drift3 25s ease-in-out infinite alternate; }
+    @keyframes drift1 { to { transform: translate(120px, 80px) scale(1.15); } }
+    @keyframes drift2 { to { transform: translate(-80px, -60px) scale(1.1); } }
+    @keyframes drift3 { to { transform: translate(60px, -80px) scale(.9); } }
 
-    /* ============================
-       NAV
-    ============================ */
+    /* ── Nav ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
-      padding: 14px 48px;
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(3,3,9,0.75);
-      backdrop-filter: blur(20px) saturate(1.4);
-      border-bottom: 1px solid rgba(255,255,255,0.055);
-      transition: background .35s;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; gap: 32px; padding: 18px 48px;
+      transition: all .3s ease;
     }
     nav.scrolled {
-      background: rgba(3,3,9,0.92);
-      border-bottom-color: var(--border-s);
+      background: rgba(3,3,9,.88); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bds); padding: 14px 48px;
     }
-    /* Thin divider between logo and links */
-    .nav-div {
-      width: 1px; height: 22px;
-      background: rgba(255,255,255,0.1);
-      margin: 0 8px;
-    }
-    .logo {
-      display: flex; align-items: center; gap: 11px;
-      font-family: var(--dsp); font-weight: 800; font-size: 22px; letter-spacing: -.02em;
-    }
-    .logo-mark {
-      width: 54px; height: 54px; border-radius: 14px;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden; filter: drop-shadow(0 0 14px var(--vg));
-    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--dsp); font-weight: 800; font-size: 18px; color: var(--t); letter-spacing: -.02em; }
+    .logo-mark { width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; }
     .logo-mark img { width: 60px; height: 60px; object-fit: contain; }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a { color: var(--tm); font-size: 15px; font-weight: 500; transition: color .2s; }
+    .nav-div { flex: 1; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--tm); text-decoration: none; transition: color .2s; }
     .nav-links a:hover { color: var(--t); }
-    .nav-end { display: flex; gap: 12px; align-items: center; }
+    .nav-end { display: flex; align-items: center; gap: 12px; }
 
-    /* ============================
-       BUTTONS
-    ============================ */
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 22px; border-radius: var(--r);
-      font-family: var(--bd); font-size: 15px; font-weight: 600;
-      cursor: pointer; border: none; transition: all .25s ease;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--v), var(--vd));
-      color: #fff; box-shadow: 0 0 28px var(--vg);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px var(--vg), 0 8px 24px rgba(0,0,0,.4); }
-    .btn-ghost {
-      background: transparent; color: var(--tm);
-      border: 1px solid var(--border-s);
-    }
-    .btn-ghost:hover { background: var(--surface); color: var(--t); border-color: var(--border); }
-    .btn-lg { padding: 17px 36px; font-size: 17px; border-radius: 20px; }
+    /* ── Buttons ── */
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 10px; font-family: var(--dsp); font-weight: 700; font-size: 14px; text-decoration: none; transition: all .22s; cursor: pointer; border: none; }
+    .btn-primary { background: linear-gradient(135deg, var(--v), var(--vd)); color: #fff; box-shadow: 0 0 28px var(--vg); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 42px rgba(139,92,246,.45); }
+    .btn-ghost { background: transparent; color: var(--tm); border: 1px solid var(--bds); }
+    .btn-ghost:hover { color: var(--t); border-color: var(--bd); background: var(--sf); }
+    .btn-lg { padding: 16px 40px; font-size: 16px; border-radius: 14px; }
 
-    /* ============================
-       LAYOUT
-    ============================ */
-    section { position: relative; z-index: 1; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 56px; }
+    /* ── Container ── */
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
 
-    /* ============================
-       HERO
-    ============================ */
-    .hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      position: relative; overflow: hidden;
-      padding-top: 96px;   /* push content below fixed nav */
-      padding-bottom: 48px;
-    }
-    #hero-canvas {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-    }
-    .hero-content { position: relative; z-index: 2; max-width: 780px; }
+    /* ── Hero ── */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 90px; position: relative; overflow: hidden; }
+    #hero-canvas { position: absolute; inset: 0; z-index: 0; }
+    .hero-content { position: relative; z-index: 1; max-width: 680px; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 100px; background: rgba(139,92,246,.12); border: 1px solid rgba(139,92,246,.3); font-size: 12px; font-weight: 600; color: var(--vl); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 28px; opacity: 0; transform: translateY(20px); }
+    .badge-dot { width: 6px; height: 6px; background: var(--em); border-radius: 50%; animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero-h1 { font-family: var(--dsp); font-size: clamp(52px, 7vw, 84px); font-weight: 800; line-height: 1.05; letter-spacing: -.04em; margin-bottom: 24px; opacity: 0; transform: translateY(28px); }
+    .gtext { background: linear-gradient(135deg, var(--v), var(--c)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 18px; line-height: 1.7; color: var(--tm); max-width: 540px; margin-bottom: 36px; opacity: 0; transform: translateY(24px); }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; opacity: 0; transform: translateY(20px); }
+    .hero-pills { display: flex; gap: 10px; flex-wrap: wrap; opacity: 0; transform: translateY(16px); }
+    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 13px; border-radius: 100px; font-size: 12px; font-weight: 600; font-family: var(--mono); }
+    .pill-v { background: rgba(139,92,246,.1); border: 1px solid rgba(139,92,246,.25); color: var(--vl); }
+    .pill-c { background: rgba(34,211,238,.08); border: 1px solid rgba(34,211,238,.2); color: var(--c); }
+    .pill-am { background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.2); color: var(--am); }
+    .pill-em { background: rgba(16,185,129,.08); border: 1px solid rgba(16,185,129,.2); color: var(--em); }
 
-    .badge {
-      display: inline-flex; align-items: center; gap: 9px;
-      background: rgba(139,92,246,0.1);
-      border: 1px solid rgba(139,92,246,0.3);
-      border-radius: 100px; padding: 6px 18px;
-      font-size: 12px; font-weight: 700; color: var(--vl);
-      letter-spacing: .08em; text-transform: uppercase;
-      margin-bottom: 36px; opacity: 0; transform: translateY(20px);
-    }
-    .badge-dot {
-      width: 7px; height: 7px; border-radius: 50%; background: var(--vl);
-      animation: blink 2.2s infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+    /* ── Section common ── */
+    .sec-label { font-family: var(--dsp); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--v); margin-bottom: 14px; }
+    .sec-title { font-family: var(--dsp); font-size: clamp(30px, 4vw, 44px); font-weight: 800; letter-spacing: -.03em; line-height: 1.12; }
+    .sec-sub { font-size: 16px; color: var(--tm); line-height: 1.7; max-width: 560px; }
+    section { padding: 112px 0; position: relative; z-index: 1; }
 
-    .hero-h1 {
-      font-family: var(--dsp);
-      font-size: clamp(54px, 7.5vw, 100px);
-      font-weight: 800; line-height: 1.0; letter-spacing: -.035em;
-      margin-bottom: 28px; opacity: 0; transform: translateY(30px);
-    }
-    .gtext {
-      background: linear-gradient(120deg, var(--vl) 0%, var(--c) 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .hero-sub {
-      font-size: 20px; color: var(--tm); max-width: 540px; line-height: 1.65;
-      margin-bottom: 44px; opacity: 0; transform: translateY(30px);
-    }
-    .hero-btns {
-      display: flex; align-items: center; gap: 16px;
-      margin-bottom: 72px; opacity: 0; transform: translateY(30px);
-    }
-    .hero-stats {
-      display: flex; align-items: center; gap: 52px;
-      opacity: 0; transform: translateY(30px);
-    }
-    .stat-val {
-      font-family: var(--dsp); font-size: 38px; font-weight: 800; color: var(--t); line-height: 1;
-    }
-    .stat-lbl { font-size: 13px; color: var(--ts); margin-top: 4px; }
-    .stat-sep { width: 1px; height: 42px; background: var(--border-s); }
+    /* ── Agents Strip ── */
+    .agents-strip { padding: 0 0 80px; }
+    .agents-strip .container { display: block; }
+    .agents-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .agent-card { padding: 28px; border-radius: var(--rl); background: var(--sf); border: 1px solid var(--bds); transition: border-color .25s, background .25s; }
+    .agent-card:hover { border-color: var(--bd); background: var(--sfh); transform: translateY(-3px); }
+    .agent-num { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--ts); margin-bottom: 10px; }
+    .agent-icon { font-size: 28px; margin-bottom: 12px; }
+    .agent-name { font-family: var(--dsp); font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .agent-desc { font-size: 13px; color: var(--tm); line-height: 1.6; }
+    .agent-tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .atag { font-size: 10px; font-family: var(--mono); font-weight: 600; padding: 3px 8px; border-radius: 6px; }
+    .atag-v { background: rgba(139,92,246,.12); color: var(--vl); border: 1px solid rgba(139,92,246,.2); }
+    .atag-c { background: rgba(34,211,238,.08); color: var(--c); border: 1px solid rgba(34,211,238,.18); }
+    .atag-am { background: rgba(245,158,11,.08); color: var(--am); border: 1px solid rgba(245,158,11,.18); }
 
-    /* ============================
-       SCROLL MARQUEE
-    ============================ */
-    .marquee-wrap {
-      position: relative; z-index: 1;
-      border-top: 1px solid var(--border-s); border-bottom: 1px solid var(--border-s);
-      overflow: hidden; padding: 20px 0;
-    }
-    .marquee-inner {
-      display: flex; gap: 72px; width: max-content;
-      animation: marquee 28s linear infinite;
-    }
-    .marquee-item {
-      font-family: var(--dsp); font-size: 17px; font-weight: 700;
-      color: var(--ts); white-space: nowrap; opacity: .45;
-    }
-    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-    .marquee-label {
-      text-align: center; font-size: 12px; color: var(--ts);
-      letter-spacing: .1em; text-transform: uppercase; font-weight: 600;
-      margin-bottom: 20px;
-    }
-
-    /* ============================
-       FEATURES
-    ============================ */
-    .features { padding: 130px 0; }
-    .sec-label {
-      font-size: 12px; font-weight: 700; color: var(--vl);
-      text-transform: uppercase; letter-spacing: .12em; margin-bottom: 14px;
-    }
-    .sec-title {
-      font-family: var(--dsp); font-size: clamp(36px, 4.5vw, 58px);
-      font-weight: 800; line-height: 1.08; letter-spacing: -.03em;
-      margin-bottom: 16px;
-    }
-    .sec-sub { font-size: 18px; color: var(--tm); max-width: 480px; line-height: 1.65; }
-    .features-hd {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      margin-bottom: 64px;
-    }
-
-    /* Bento */
-    .bento {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 16px;
-    }
-    .bc {
-      background: linear-gradient(135deg, rgba(255,255,255,0.038) 0%, rgba(255,255,255,0.018) 100%);
-      border: 1px solid rgba(255,255,255,0.075);
-      border-radius: var(--rl); padding: 38px;
-      position: relative; overflow: hidden;
-      transition: background .3s, border-color .3s, box-shadow .3s, transform .25s;
-    }
-    /* Shimmer line at top on hover */
-    .bc::after {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 1px;
-      background: linear-gradient(90deg, transparent 0%, var(--vl) 40%, var(--c) 60%, transparent 100%);
-      opacity: 0; transition: opacity .35s;
-    }
-    .bc:hover {
-      background: linear-gradient(135deg, rgba(139,92,246,0.06) 0%, rgba(34,211,238,0.03) 100%);
-      border-color: rgba(139,92,246,0.28);
-      box-shadow: 0 0 0 1px rgba(139,92,246,0.08), 0 8px 32px rgba(0,0,0,0.3);
-    }
-    .bc:hover::after { opacity: 1; }
-
-    .bc-7  { grid-column: span 7; }
-    .bc-5  { grid-column: span 5; }
+    /* ── Features Bento ── */
+    .features { padding-top: 20px; }
+    .features-hd { display: flex; align-items: flex-start; justify-content: space-between; gap: 40px; margin-bottom: 56px; flex-wrap: wrap; }
+    .bento { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: minmax(220px, auto); gap: 20px; }
+    .bc { padding: 32px; border-radius: var(--rl); background: var(--sf); border: 1px solid var(--bds); transition: border-color .3s ease, background .3s ease; overflow: hidden; position: relative; }
+    .bc:hover { border-color: var(--bd); background: var(--sfh); }
+    .bc-8  { grid-column: span 8; }
     .bc-4  { grid-column: span 4; }
+    .bc-6  { grid-column: span 6; }
+    .bc-5  { grid-column: span 5; }
+    .bc-7  { grid-column: span 7; }
+    .bc-12 { grid-column: span 12; }
+    .ci { font-size: 28px; margin-bottom: 14px; }
+    .ct { font-family: var(--dsp); font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .cd { font-size: 14px; color: var(--tm); line-height: 1.65; }
+    .card-visual { margin-top: 20px; border-radius: 12px; overflow: hidden; height: 140px; background: var(--bg2); }
+    .mini-canvas { display: block; }
+    .code-block { font-family: var(--mono); font-size: 12px; padding: 16px; background: rgba(0,0,0,.35); border-radius: 10px; border: 1px solid var(--bds); }
+    .code-kw { color: var(--c); font-weight: 600; }
+    .score-demo { margin-top: 20px; }
+    .score-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 12px; }
+    .score-label { color: var(--ts); width: 130px; font-family: var(--mono); text-transform: uppercase; letter-spacing: .04em; font-size: 10px; }
+    .score-bar-bg { flex: 1; height: 5px; background: rgba(255,255,255,.06); border-radius: 99px; overflow: hidden; }
+    .score-bar-fill { height: 100%; border-radius: 99px; }
+    .score-val { font-family: var(--mono); font-size: 11px; color: var(--tm); width: 28px; text-align: right; }
 
-    .ci {
-      width: 56px; height: 56px; border-radius: 16px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 26px; margin-bottom: 24px;
-      position: relative; flex-shrink: 0;
-    }
-    /* Vibrant, on-brand icon boxes with border + soft glow */
-    .ci-v  {
-      background: rgba(139,92,246,.16);
-      border: 1px solid rgba(139,92,246,.38);
-      box-shadow: 0 0 18px rgba(139,92,246,.18), inset 0 1px 0 rgba(255,255,255,.06);
-    }
-    .ci-c  {
-      background: rgba(34,211,238,.12);
-      border: 1px solid rgba(34,211,238,.32);
-      box-shadow: 0 0 18px rgba(34,211,238,.14), inset 0 1px 0 rgba(255,255,255,.06);
-    }
-    /* amber — used for ⚡ Smart Summaries (energy/lightning) */
-    .ci-am {
-      background: rgba(251,191,36,.12);
-      border: 1px solid rgba(251,191,36,.32);
-      box-shadow: 0 0 18px rgba(251,191,36,.12), inset 0 1px 0 rgba(255,255,255,.06);
-    }
-    /* blue — used for 🔗 Citations (links/connections) */
-    .ci-bl {
-      background: rgba(59,130,246,.14);
-      border: 1px solid rgba(59,130,246,.32);
-      box-shadow: 0 0 18px rgba(59,130,246,.12), inset 0 1px 0 rgba(255,255,255,.06);
-    }
-    /* emerald — kept for future use */
-    .ci-em {
-      background: rgba(16,185,129,.12);
-      border: 1px solid rgba(16,185,129,.3);
-      box-shadow: 0 0 18px rgba(16,185,129,.1), inset 0 1px 0 rgba(255,255,255,.06);
-    }
+    /* ── How it works ── */
+    .hiw { background: rgba(139,92,246,.03); border-top: 1px solid var(--bds); border-bottom: 1px solid var(--bds); }
+    .hiw-hd { text-align: center; margin-bottom: 60px; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .step { padding: 36px 28px; border-radius: var(--rl); background: var(--sf); border: 1px solid var(--bds); transition: border-color .25s, background .25s; }
+    .step:hover { border-color: var(--bd); transform: translateY(-4px); }
+    .step-num { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: var(--dsp); font-size: 18px; font-weight: 800; margin-bottom: 18px; }
+    .sn1 { background: rgba(139,92,246,.15); color: var(--vl); border: 1px solid rgba(139,92,246,.25); }
+    .sn2 { background: rgba(34,211,238,.1); color: var(--c); border: 1px solid rgba(34,211,238,.2); }
+    .sn3 { background: rgba(245,158,11,.1); color: var(--am); border: 1px solid rgba(245,158,11,.2); }
+    .step-title { font-family: var(--dsp); font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+    .step-desc { font-size: 13px; color: var(--tm); line-height: 1.65; margin-bottom: 16px; }
+    .agent-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-family: var(--mono); font-weight: 600; padding: 4px 10px; border-radius: 8px; margin-top: 6px; margin-right: 6px; }
+    .at1 { background: rgba(139,92,246,.1); color: var(--vl); border: 1px solid rgba(139,92,246,.2); }
+    .at2 { background: rgba(34,211,238,.08); color: var(--c); border: 1px solid rgba(34,211,238,.18); }
+    .at3 { background: rgba(245,158,11,.08); color: var(--am); border: 1px solid rgba(245,158,11,.18); }
 
-    .ct { font-family: var(--dsp); font-size: 21px; font-weight: 700; margin-bottom: 10px; }
-    .cd { font-size: 15px; color: var(--tm); line-height: 1.65; }
+    /* ── Demo mockup ── */
+    .demo-sec { }
+    .demo-hd { text-align: center; margin-bottom: 48px; }
+    .mockup { border-radius: var(--rl); overflow: hidden; border: 1px solid var(--bds); box-shadow: 0 40px 120px rgba(0,0,0,.6), 0 0 60px rgba(139,92,246,.12); background: var(--bg2); }
+    .mockup-bar { display: flex; align-items: center; gap: 8px; padding: 14px 20px; background: rgba(255,255,255,.03); border-bottom: 1px solid var(--bds); }
+    .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .dr { background: #ff5f57; } .dy { background: #febc2e; } .dg { background: #28c840; }
+    .mockup-url { margin-left: 12px; font-family: var(--mono); font-size: 11px; color: var(--ts); padding: 4px 14px; background: rgba(255,255,255,.04); border-radius: 6px; border: 1px solid var(--bds); }
+    .mockup-body { display: grid; grid-template-columns: 220px 1fr; min-height: 420px; }
+    .mockup-sidebar { border-right: 1px solid var(--bds); padding: 20px 16px; display: flex; flex-direction: column; gap: 6px; }
+    .sidebar-title { font-family: var(--dsp); font-size: 12px; font-weight: 700; color: var(--ts); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--bds); }
+    .paper-item { display: flex; align-items: center; gap: 9px; padding: 9px 10px; border-radius: 10px; font-size: 12px; color: var(--tm); cursor: default; transition: all .18s; }
+    .paper-item.active { background: rgba(139,92,246,.12); color: var(--t); }
+    .paper-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .pd1 { background: #8b5cf6; } .pd2 { background: #22d3ee; } .pd3 { background: #f59e0b; }
+    .mockup-main { padding: 24px 28px; }
+    .mockup-h { font-family: var(--dsp); font-size: 14px; font-weight: 700; color: var(--ts); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 20px; }
+    .node-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 24px; }
+    .node-card { padding: 14px; border-radius: 12px; background: rgba(255,255,255,.03); border: 1px solid var(--bds); }
+    .node-tag { font-size: 10px; font-family: var(--mono); font-weight: 600; color: var(--v); margin-bottom: 6px; }
+    .node-text { font-size: 12px; color: var(--tm); line-height: 1.5; }
+    .hyp-block { padding: 14px 16px; border-radius: 12px; background: rgba(139,92,246,.06); border: 1px solid rgba(139,92,246,.15); margin-bottom: 10px; }
+    .hyp-label { font-size: 10px; font-family: var(--mono); font-weight: 700; color: var(--v); margin-bottom: 6px; }
+    .hyp-text { font-size: 12px; color: var(--tm); line-height: 1.55; }
 
-    .card-visual {
-      margin-top: 26px; height: 180px; border-radius: 14px;
-      background: var(--bg); border: 1px solid var(--border-s); overflow: hidden;
-    }
-    .mini-canvas { width: 100%; height: 100%; display: block; }
-
-    .code-block {
-      margin-top: 24px; background: var(--bg2);
-      border: 1px solid var(--border-s); border-radius: 12px;
-      padding: 18px 20px; font-family: var(--mono);
-      font-size: 13px; line-height: 1.7;
-    }
-    .code-kw { color: var(--vl); }
-    .code-str { color: var(--c); }
-    .code-cm { color: var(--ts); }
-
-    /* ============================
-       HOW IT WORKS
-    ============================ */
-    .hiw {
-      padding: 130px 0;
-      background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
-    }
-    .hiw-hd { text-align: center; margin-bottom: 80px; }
-    .steps {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;
-      position: relative;
-    }
-    .steps::before {
-      content: '';
-      position: absolute; top: 64px; left: calc(16.67% + 28px); right: calc(16.67% + 28px);
-      height: 1px;
-      background: linear-gradient(90deg, var(--v), var(--c));
-      opacity: .3;
-    }
-    .step {
-      text-align: center; padding: 52px 36px;
-      background: linear-gradient(160deg, rgba(255,255,255,.042) 0%, rgba(255,255,255,.018) 100%);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--rx); position: relative;
-      transition: all .35s;
-    }
-    .step:hover {
-      background: linear-gradient(160deg, rgba(139,92,246,.07) 0%, rgba(34,211,238,.03) 100%);
-      border-color: rgba(139,92,246,.3);
-      box-shadow: 0 0 0 1px rgba(139,92,246,.08), 0 16px 48px rgba(0,0,0,.35);
-      transform: translateY(-6px);
-    }
-    .step-num {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 58px; height: 58px; border-radius: 50%;
-      font-family: var(--dsp); font-size: 26px; font-weight: 800;
-      margin-bottom: 28px;
-    }
-    .sn1 { background: linear-gradient(135deg, var(--v), var(--vd)); color: #fff; box-shadow: 0 0 32px var(--vg); }
-    .sn2 { background: linear-gradient(135deg, var(--c), #0284c7); color: #fff; box-shadow: 0 0 32px var(--cg); }
-    .sn3 { background: linear-gradient(135deg, var(--em), #059669); color: #fff; box-shadow: 0 0 32px rgba(16,185,129,.35); }
-    .step-title { font-family: var(--dsp); font-size: 22px; font-weight: 700; margin-bottom: 12px; }
-    .step-desc  { font-size: 15px; color: var(--tm); line-height: 1.65; }
-    .agent-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      margin-top: 22px; padding: 5px 14px; border-radius: 100px;
-      font-size: 12px; font-weight: 700; font-family: var(--mono); letter-spacing: .04em;
-    }
-    .at1 { background: rgba(139,92,246,.12); color: var(--vl); border: 1px solid rgba(139,92,246,.22); }
-    .at2 { background: rgba(34,211,238,.1);  color: var(--c);  border: 1px solid rgba(34,211,238,.2); }
-    .at3 { background: rgba(16,185,129,.1);  color: var(--em); border: 1px solid rgba(16,185,129,.2); }
-
-    /* ============================
-       TECH
-    ============================ */
-    .tech { padding: 110px 0; }
+    /* ── Tech ── */
     .tech-hd { text-align: center; margin-bottom: 56px; }
-    .tech-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-    }
-    .tc {
-      background: linear-gradient(160deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.02) 100%);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--r); padding: 32px 24px; text-align: center;
-      transition: all .3s;
-    }
-    .tc:hover {
-      border-color: rgba(139,92,246,.35);
-      transform: translateY(-6px);
-      background: linear-gradient(160deg, rgba(139,92,246,.07) 0%, rgba(34,211,238,.03) 100%);
-      box-shadow: 0 12px 40px rgba(0,0,0,.3);
-    }
-    .tc-icon { font-size: 40px; margin-bottom: 14px; }
-    .tc-name { font-family: var(--dsp); font-weight: 700; font-size: 17px; margin-bottom: 6px; }
-    .tc-desc { font-size: 13px; color: var(--ts); line-height: 1.5; }
+    .tech-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .tc { padding: 28px 22px; border-radius: var(--r); background: var(--sf); border: 1px solid var(--bds); text-align: center; transition: border-color .25s, background .25s; }
+    .tc:hover { border-color: var(--bd); transform: translateY(-3px); }
+    .tc-icon { font-size: 28px; margin-bottom: 12px; }
+    .tc-name { font-family: var(--dsp); font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .tc-desc { font-size: 12px; color: var(--tm); line-height: 1.6; }
 
-    /* ============================
-       DEMO MOCKUP
-    ============================ */
-    .demo-sec { padding: 80px 0 130px; }
-    .demo-hd  { text-align: center; margin-bottom: 56px; }
-    .mockup {
-      background: var(--bg2); border: 1px solid var(--border-s);
-      border-radius: var(--rx); overflow: hidden; position: relative;
-      box-shadow: 0 40px 100px rgba(0,0,0,.6), 0 0 0 1px var(--border-s);
-    }
-    .mockup-bar {
-      background: rgba(255,255,255,.04);
-      border-bottom: 1px solid var(--border-s);
-      padding: 14px 20px; display: flex; align-items: center; gap: 8px;
-    }
-    .dot { width: 12px; height: 12px; border-radius: 50%; }
-    .dr { background: #ff5f57; }
-    .dy { background: #febc2e; }
-    .dg { background: #28c840; }
-    .mockup-url {
-      flex: 1; background: rgba(255,255,255,.06);
-      border-radius: 8px; padding: 5px 14px;
-      font-family: var(--mono); font-size: 12px; color: var(--ts);
-      text-align: center; margin: 0 16px;
-    }
-    .mockup-body {
-      display: grid; grid-template-columns: 280px 1fr;
-      min-height: 440px;
-    }
-    .mockup-sidebar {
-      border-right: 1px solid var(--border-s); padding: 24px 20px;
-    }
-    .sidebar-title { font-family: var(--dsp); font-size: 13px; font-weight: 700; color: var(--ts); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 20px; }
-    .paper-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 12px; border-radius: 10px; margin-bottom: 6px;
-      border: 1px solid transparent; font-size: 13px; color: var(--tm);
-      transition: all .2s; cursor: pointer;
-    }
-    .paper-item:hover, .paper-item.active { background: rgba(139,92,246,.1); border-color: var(--border); color: var(--t); }
-    .paper-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .pd1 { background: var(--v); }
-    .pd2 { background: var(--c); }
-    .pd3 { background: var(--em); }
-    .pd4 { background: #f59e0b; }
+    /* ── Team ── */
+    .team { background: rgba(139,92,246,.03); border-top: 1px solid var(--bds); border-bottom: 1px solid var(--bds); }
+    .team-hd { text-align: center; margin-bottom: 56px; }
+    .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .member { padding: 32px 24px; border-radius: var(--rl); background: var(--sf); border: 1px solid var(--bds); text-align: center; transition: border-color .28s, background .28s; }
+    .member:hover { border-color: var(--bd); transform: translateY(-4px); background: var(--sfh); }
+    .member-avatar { width: 72px; height: 72px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--dsp); font-size: 26px; font-weight: 800; margin: 0 auto 18px; }
+    .av1 { background: rgba(139,92,246,.18); color: var(--vl); border: 2px solid rgba(139,92,246,.35); }
+    .av2 { background: rgba(34,211,238,.12); color: var(--c); border: 2px solid rgba(34,211,238,.28); }
+    .av3 { background: rgba(245,158,11,.12); color: var(--am); border: 2px solid rgba(245,158,11,.28); }
+    .av4 { background: rgba(16,185,129,.12); color: var(--em); border: 2px solid rgba(16,185,129,.28); }
+    .member-name { font-family: var(--dsp); font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+    .member-role { font-size: 12px; color: var(--ts); font-family: var(--mono); font-weight: 500; margin-bottom: 12px; }
+    .member-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; }
+    .mtag { font-size: 10px; padding: 2px 8px; border-radius: 5px; font-family: var(--mono); font-weight: 600; }
 
-    .mockup-main { padding: 28px 32px; }
-    .mockup-h { font-family: var(--dsp); font-size: 18px; font-weight: 700; margin-bottom: 20px; }
-    .node-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
-    .node-card {
-      background: rgba(255,255,255,.03); border: 1px solid var(--border-s);
-      border-radius: 12px; padding: 14px 16px;
-    }
-    .node-tag { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--vl); margin-bottom: 6px; }
-    .node-text { font-size: 13px; color: var(--tm); line-height: 1.4; }
-    .hyp-block {
-      background: rgba(139,92,246,.08); border: 1px solid rgba(139,92,246,.2);
-      border-radius: 12px; padding: 18px 20px; margin-bottom: 12px;
-    }
-    .hyp-label { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--vl); margin-bottom: 8px; }
-    .hyp-text  { font-size: 14px; color: var(--tm); line-height: 1.55; font-style: italic; }
+    /* ── Deliverables ── */
+    .deliverables { padding: 80px 0; }
+    .del-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; max-width: 960px; margin: 0 auto; }
+    .del-card { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 32px 20px; background: var(--sf); border: 1px solid var(--bd); border-radius: var(--rl); text-decoration: none; transition: border-color .25s, background .25s; }
+    .del-card:hover { background: rgba(139,92,246,.1); transform: translateY(-3px); border-color: rgba(139,92,246,.4); }
+    .del-icon { font-size: 32px; }
+    .del-name { font-family: var(--dsp); font-weight: 700; font-size: 14px; color: var(--t); }
+    .del-sub { font-size: 11px; color: var(--ts); text-align: center; }
 
-    /* ============================
-       PRICING
-    ============================ */
-    .pricing { padding: 130px 0; background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%); }
-    .pricing-hd { text-align: center; margin-bottom: 72px; }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .pc {
-      background: linear-gradient(160deg, rgba(255,255,255,.04) 0%, rgba(255,255,255,.016) 100%);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--rx); padding: 44px 38px;
-      position: relative; transition: all .35s;
-    }
-    .pc:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.35); border-color: rgba(139,92,246,.22); }
-    .pc-feat {
-      border-color: var(--border);
-      background: linear-gradient(135deg, rgba(139,92,246,.08), rgba(34,211,238,.04));
-    }
-    .pc-feat::before {
-      content: '';
-      position: absolute; inset: -1px; border-radius: var(--rx);
-      background: linear-gradient(135deg, var(--v), var(--c));
-      z-index: -1; opacity: .45;
-    }
-    .pc-badge {
-      display: inline-flex; background: linear-gradient(135deg, var(--v), var(--c));
-      color: #fff; font-size: 11px; font-weight: 800;
-      padding: 4px 14px; border-radius: 100px;
-      letter-spacing: .06em; text-transform: uppercase; margin-bottom: 28px;
-    }
-    .pc-name { font-family: var(--dsp); font-size: 26px; font-weight: 800; margin-bottom: 8px; }
-    .pc-desc { font-size: 14px; color: var(--tm); margin-bottom: 36px; }
-    .pc-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 36px; }
-    .pc-cur   { font-size: 20px; color: var(--tm); }
-    .pc-amt   { font-family: var(--dsp); font-size: 58px; font-weight: 800; line-height: 1; }
-    .pc-per   { font-size: 15px; color: var(--tm); }
-    .pc-feats { list-style: none; margin-bottom: 40px; }
-    .pc-feats li {
-      display: flex; align-items: center; gap: 11px;
-      padding: 11px 0; border-bottom: 1px solid var(--border-s);
-      font-size: 15px; color: var(--tm);
-    }
-    .pc-feats li:last-child { border-bottom: none; }
-    .chk { color: var(--em); font-weight: 700; }
-    .cross { color: var(--ts); }
+    /* ── CTA ── */
+    .cta { padding: 120px 0; text-align: center; position: relative; overflow: hidden; }
+    .cta-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(139,92,246,.08), transparent); }
+    .cta-title { font-family: var(--dsp); font-size: clamp(34px, 5vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -.035em; margin-bottom: 20px; }
+    .cta-sub { font-size: 17px; color: var(--tm); margin-bottom: 40px; }
+    .cta-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
 
-    /* ============================
-       CTA
-    ============================ */
-    .cta { padding: 130px 0; text-align: center; overflow: hidden; }
-    .cta-glow {
-      position: absolute; width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(139,92,246,.12) 0%, transparent 70%);
-      top: 50%; left: 50%; transform: translate(-50%,-50%);
-      pointer-events: none;
-    }
-    .cta-title {
-      font-family: var(--dsp); font-size: clamp(42px, 5.5vw, 78px);
-      font-weight: 800; line-height: 1.08; letter-spacing: -.03em;
-      margin-bottom: 24px; position: relative;
-    }
-    .cta-sub { font-size: 20px; color: var(--tm); margin-bottom: 52px; position: relative; }
-    .cta-actions { display: flex; justify-content: center; gap: 16px; position: relative; }
+    /* ── Footer ── */
+    footer { border-top: 1px solid var(--bds); padding: 40px 0; background: var(--bg2); position: relative; z-index: 1; }
+    .footer-in { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .footer-cp { font-size: 12px; color: var(--ts); margin-top: 6px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a { font-size: 13px; color: var(--tm); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--t); }
 
-    /* ============================
-       FOOTER
-    ============================ */
-    footer {
-      padding: 52px 0; border-top: 1px solid var(--border-s);
-      position: relative; z-index: 1;
-    }
-    .footer-in { display: flex; justify-content: space-between; align-items: center; }
-    .footer-cp { font-size: 14px; color: var(--ts); }
-    .footer-links { display: flex; gap: 28px; }
-    .footer-links a { font-size: 14px; color: var(--ts); transition: color .2s; }
-    .footer-links a:hover { color: var(--tm); }
+    /* ── Scroll reveals ── */
+    .rev { opacity: 0; transform: translateY(28px); }
+    /* .stg > * initial state is set by GSAP below — NOT in CSS — so mouseleave reset to translateY(0) never falls back to a CSS transform */
 
-    /* ============================
-       UTILS / ANIMATION INIT
-    ============================ */
-    .rev { opacity: 0; transform: translateY(32px); }
-    .stg > * { opacity: 0; transform: translateY(22px); }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--vd); border-radius: 99px; }
   </style>
 </head>
 <body>
 
-<!-- ===================== AURORA ===================== -->
+<!-- Aurora -->
 <div class="aurora">
   <div class="ab ab1"></div>
   <div class="ab ab2"></div>
   <div class="ab ab3"></div>
 </div>
 
-<!-- ===================== NAV ===================== -->
+<!-- Nav -->
 <nav id="navbar">
   <a href="#" class="logo">
-    <div class="logo-mark"><img src="logo.png" alt="ResearchMind logo" /></div>
+    <div class="logo-mark"><img src="logo.png" alt="ResearchMind" /></div>
     ResearchMind
   </a>
   <div class="nav-div"></div>
   <ul class="nav-links">
+    <li><a href="#agents">Agents</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#how-it-works">How it works</a></li>
-    <li><a href="#tech">Technology</a></li>
-    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#deliverables">Deliverables</a></li>
   </ul>
   <div class="nav-end">
-    <a href="#" class="btn btn-ghost">Sign in</a>
+    <a href="https://github.com/Teo1230/MPA/tree/main" target="_blank" rel="noopener" class="btn btn-ghost" style="display:flex;align-items:center;gap:7px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
     <a href="researchmind-mvp/static/app.html" class="btn btn-primary">Open App →</a>
   </div>
 </nav>
 
-<!-- ===================== HERO ===================== -->
+<!-- Hero -->
 <section class="hero" id="home">
   <canvas id="hero-canvas"></canvas>
   <div class="container">
     <div class="hero-content">
       <div class="badge" id="hbadge">
         <span class="badge-dot"></span>
-        Multi-Agent AI &nbsp;·&nbsp; Powered by Groq &amp; LLaMA 3
+        3 AI Agents &nbsp;·&nbsp; Powered by Groq &amp; LLaMA 3.1
       </div>
       <h1 class="hero-h1" id="hh1">
         Where<br>Knowledge<br><span class="gtext">Connects.</span>
       </h1>
       <p class="hero-sub" id="hsub">
-        ResearchMind uses three specialised AI agents to build living knowledge graphs from your research papers — revealing hidden connections and generating novel hypotheses automatically.
+        ResearchMind is a multi-agent AI platform that analyses your research papers, surfaces hidden connections, generates evidence-backed hypotheses, and critiques scientific quality — all in one place.
       </p>
       <div class="hero-btns" id="hbtns">
-        <a href="researchmind-mvp/static/app.html" class="btn btn-primary btn-lg">Start for free — no CC needed</a>
+        <a href="researchmind-mvp/static/app.html" class="btn btn-primary btn-lg">Open the App →</a>
+        <a href="https://github.com/Teo1230/MPA/tree/main" target="_blank" rel="noopener" class="btn btn-ghost btn-lg" style="display:inline-flex;align-items:center;gap:8px">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          View on GitHub
+        </a>
         <a href="#how-it-works" class="btn btn-ghost btn-lg">See how it works ↓</a>
       </div>
-      <div class="hero-stats" id="hstats">
-        <div>
-          <div class="stat-val" data-count="12400">0</div>
-          <div class="stat-lbl">Researchers onboarded</div>
-        </div>
-        <div class="stat-sep"></div>
-        <div>
-          <div class="stat-val" data-count="380000">0</div>
-          <div class="stat-lbl">Papers analysed</div>
-        </div>
-        <div class="stat-sep"></div>
-        <div>
-          <div class="stat-val">3</div>
-          <div class="stat-lbl">AI agents, always active</div>
-        </div>
+      <div class="hero-pills" id="hpills">
+        <span class="pill pill-v">⬡ Paper Analyzer</span>
+        <span class="pill pill-c">◈ Synthesis Agent</span>
+        <span class="pill pill-am">🔬 Paper Critic</span>
+        <span class="pill pill-em">Built for MPA 2026</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== MARQUEE ===================== -->
-<div class="marquee-wrap">
-  <p class="marquee-label" style="position:relative;z-index:1;">Trusted by researchers at</p>
-  <div class="marquee-inner">
-    <span class="marquee-item">MIT</span>
-    <span class="marquee-item">Stanford</span>
-    <span class="marquee-item">Oxford</span>
-    <span class="marquee-item">Harvard</span>
-    <span class="marquee-item">ETH Zürich</span>
-    <span class="marquee-item">Caltech</span>
-    <span class="marquee-item">Cambridge</span>
-    <span class="marquee-item">UCL</span>
-    <span class="marquee-item">EPFL</span>
-    <span class="marquee-item">NUS</span>
-    <!-- duplicate for seamless loop -->
-    <span class="marquee-item">MIT</span>
-    <span class="marquee-item">Stanford</span>
-    <span class="marquee-item">Oxford</span>
-    <span class="marquee-item">Harvard</span>
-    <span class="marquee-item">ETH Zürich</span>
-    <span class="marquee-item">Caltech</span>
-    <span class="marquee-item">Cambridge</span>
-    <span class="marquee-item">UCL</span>
-    <span class="marquee-item">EPFL</span>
-    <span class="marquee-item">NUS</span>
-  </div>
-</div>
+<!-- Agents -->
+<section class="agents-strip" id="agents">
+  <div class="container">
+    <div class="sec-label rev" style="margin-bottom:32px;">The Three Agents</div>
+    <div class="agents-grid stg">
 
-<!-- ===================== FEATURES ===================== -->
+      <div class="agent-card">
+        <div class="agent-num">AGENT 01</div>
+        <div class="agent-icon">⬡</div>
+        <div class="agent-name" style="color:var(--vl)">Paper Analyzer</div>
+        <div class="agent-desc">Ingests raw paper text and extracts structured knowledge: title, summary, key concepts, methodology, datasets, findings, and limitations — as typed JSON in seconds.</div>
+        <div class="agent-tag-row">
+          <span class="atag atag-v">Extraction</span>
+          <span class="atag atag-v">JSON output</span>
+          <span class="atag atag-v">LLaMA 3.1</span>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-num">AGENT 02</div>
+        <div class="agent-icon">◈</div>
+        <div class="agent-name" style="color:var(--c)">Synthesis Agent</div>
+        <div class="agent-desc">Takes all Agent 1 outputs, identifies cross-paper themes and specific connections, surfaces research gaps, and generates 3 novel, testable hypotheses backed by evidence from your library.</div>
+        <div class="agent-tag-row">
+          <span class="atag atag-c">Cross-paper</span>
+          <span class="atag atag-c">Hypotheses</span>
+          <span class="atag atag-c">Gap analysis</span>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-num">AGENT 03</div>
+        <div class="agent-icon">🔬</div>
+        <div class="agent-name" style="color:var(--am)">Paper Critic</div>
+        <div class="agent-desc">Critically evaluates each paper's methodology rigour, statistical soundness, reproducibility, and novelty. Returns a credibility score (0–10) with breakdown, weaknesses, and suggested improvements.</div>
+        <div class="agent-tag-row">
+          <span class="atag atag-am">Scoring 0–10</span>
+          <span class="atag atag-am">Weaknesses</span>
+          <span class="atag atag-am">Reproducibility</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Features -->
 <section class="features" id="features">
   <div class="container">
     <div class="features-hd">
       <div>
         <div class="sec-label rev">Features</div>
-        <h2 class="sec-title rev">Research intelligence,<br>fully automated.</h2>
+        <h2 class="sec-title rev">Research intelligence,<br>actually built.</h2>
       </div>
-      <p class="sec-sub rev">Three AI agents work in concert to transform how scientists discover, synthesise, and critically evaluate knowledge.</p>
+      <p class="sec-sub rev">Every feature below is live and working in the MVP — no mockups, no future roadmap items.</p>
     </div>
 
     <div class="bento stg">
-      <!-- Card 1 – big: Knowledge Graph -->
+
+      <!-- Row 1: Knowledge Graph (7) + Synthesis (5) = 12 -->
       <div class="bc bc-7">
-        <div class="ci ci-v">🕸️</div>
-        <h3 class="ct">Living Knowledge Graph</h3>
-        <p class="cd">Your entire library becomes an interactive graph. ResearchMind maps concepts, authors, and findings across hundreds of papers in seconds — and updates it in real time.</p>
+        <div class="ci">🕸️</div>
+        <h3 class="ct">Knowledge Graph</h3>
+        <p class="cd">Every paper you add becomes a node. Shared concepts draw edges between papers, revealing thematic clusters and research overlaps at a glance. Built with D3.js — fully interactive.</p>
         <div class="card-visual">
-          <canvas class="mini-canvas" id="mini-canvas"></canvas>
+          <canvas class="mini-canvas" id="mini-canvas" width="500" height="140"></canvas>
         </div>
       </div>
 
-      <!-- Card 2 – Hypothesis -->
       <div class="bc bc-5">
-        <div class="ci ci-c">💡</div>
-        <h3 class="ct">Hypothesis Generator</h3>
-        <p class="cd">The Synthesis Agent scans your graph for unexplored intersections and proposes novel research questions backed by evidence from your own library.</p>
-        <div class="code-block" style="margin-top:24px;">
-          <div><span class="code-kw">→ Hypothesis #1</span></div>
-          <div style="color:var(--tm);font-size:12px;margin-top:6px;">"Combining transformer attention with protein folding energy functions may improve binding site prediction by 23%..."</div>
+        <div class="ci">💡</div>
+        <h3 class="ct">Synthesis &amp; Hypotheses</h3>
+        <p class="cd">Agent 2 reads all your papers together and produces specific cross-paper connections, research gaps, and 3 novel testable hypotheses — citing paper titles in its reasoning.</p>
+        <div class="code-block" style="margin-top:20px;">
+          <div><span class="code-kw">→ Connection found</span></div>
+          <div style="color:var(--tm);font-size:11px;margin-top:5px;">"Both papers target mental health via NLP — Paper A models adaptive states, Paper B extracts clinical markers with lightweight classifiers."</div>
           <br/>
           <div><span class="code-kw">→ Research gap</span></div>
-          <div style="color:var(--tm);font-size:12px;margin-top:6px;">No study integrates multi-modal embeddings with dynamic graph neural nets for drug discovery.</div>
+          <div style="color:var(--tm);font-size:11px;margin-top:5px;">No study combines adaptive state modelling with lightweight marker extraction for real-time clinical alerts.</div>
         </div>
       </div>
 
-      <!-- Card 3 – Summaries -->
-      <div class="bc bc-4">
-        <div class="ci ci-am">⚡</div>
-        <h3 class="ct">Smart Summaries</h3>
-        <p class="cd">Get structured summaries of any paper in under 10 seconds: methodology, key findings, limitations — all extracted automatically.</p>
-        <div style="margin-top:20px;display:flex;gap:6px;flex-wrap:wrap;">
-          <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);color:#fbbf24;font-weight:700;font-family:var(--mono)">10 sec</span>
-          <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);color:#fbbf24;font-weight:700;font-family:var(--mono)">Structured JSON</span>
+      <!-- Row 2: Paper Critique (6) + Library Chat (6) = 12 -->
+      <div class="bc bc-6">
+        <div class="ci">🔬</div>
+        <h3 class="ct">Paper Critique (Agent 3)</h3>
+        <p class="cd">Select any paper and get an instant quality assessment — methodology, statistics, reproducibility, novelty, and clarity — each scored 0–10 with a credibility verdict.</p>
+        <div class="score-demo" style="margin-top:18px;">
+          <div class="score-row">
+            <span class="score-label">Methodology</span>
+            <div class="score-bar-bg"><div class="score-bar-fill" style="width:88%;background:var(--em)"></div></div>
+            <span class="score-val">8.8</span>
+          </div>
+          <div class="score-row">
+            <span class="score-label">Reproducibility</span>
+            <div class="score-bar-bg"><div class="score-bar-fill" style="width:92%;background:var(--em)"></div></div>
+            <span class="score-val">9.2</span>
+          </div>
+          <div class="score-row">
+            <span class="score-label">Novelty</span>
+            <div class="score-bar-bg"><div class="score-bar-fill" style="width:75%;background:var(--am)"></div></div>
+            <span class="score-val">7.5</span>
+          </div>
+          <div class="score-row">
+            <span class="score-label">Stat. Soundness</span>
+            <div class="score-bar-bg"><div class="score-bar-fill" style="width:80%;background:var(--em)"></div></div>
+            <span class="score-val">8.0</span>
+          </div>
         </div>
       </div>
 
-      <!-- Card 4 – Citations -->
-      <div class="bc bc-4">
-        <div class="ci ci-bl">🔗</div>
-        <h3 class="ct">Citation Intelligence</h3>
-        <p class="cd">Detect citation gaps, find foundational papers you may have missed, and export to BibTeX, APA, or MLA with one click.</p>
-        <div style="margin-top:20px;display:flex;gap:6px;flex-wrap:wrap;">
-          <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#60a5fa;font-weight:700;font-family:var(--mono)">BibTeX</span>
-          <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.25);color:#60a5fa;font-weight:700;font-family:var(--mono)">APA · MLA</span>
-        </div>
-      </div>
-
-      <!-- Card 5 – Chat -->
-      <div class="bc bc-4">
-        <div class="ci ci-v">💬</div>
+      <div class="bc bc-6">
+        <div class="ci">💬</div>
         <h3 class="ct">Library Chat</h3>
-        <p class="cd">Ask questions across your whole library. Get answers grounded in exact papers and page numbers — not hallucinations.</p>
-        <div style="margin-top:20px;display:flex;gap:6px;flex-wrap:wrap;">
-          <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.28);color:var(--vl);font-weight:700;font-family:var(--mono)">Grounded</span>
-          <span style="font-size:11px;padding:3px 10px;border-radius:100px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.28);color:var(--vl);font-weight:700;font-family:var(--mono)">With citations</span>
+        <p class="cd">Ask any question across your entire paper library. The chat agent draws on every analyzed paper to give grounded, contextual answers — identifying which papers support each claim.</p>
+        <div style="margin-top:16px;font-family:var(--mono);font-size:11px;color:var(--ts);">
+          <div style="padding:8px 12px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid var(--bds);margin-bottom:6px;">
+            <span style="color:var(--vl);">You:</span> What evaluation metrics do these papers share?
+          </div>
+          <div style="padding:8px 12px;background:rgba(139,92,246,.06);border-radius:8px;border:1px solid rgba(139,92,246,.15);">
+            <span style="color:var(--c);">Agent:</span> Both papers use F1-score as the primary metric. Paper 2 also reports precision and recall separately across clinical categories…
+          </div>
         </div>
       </div>
+
+      <!-- Row 3: Smart Summaries — full width = 12 -->
+      <div class="bc bc-12" style="grid-auto-rows:auto;padding:28px 32px;">
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+          <div class="ci" style="margin-bottom:0;font-size:24px;">⚡</div>
+          <div style="flex:1;min-width:200px;">
+            <h3 class="ct" style="margin-bottom:6px;">Smart Summaries — URL or Paste</h3>
+            <p class="cd" style="margin-bottom:0;">Agent 1 fetches any PDF URL (ACL Anthology, arXiv) or accepts pasted text and extracts title, summary, methodology, findings, datasets, evaluation metrics, and limitations as structured JSON in seconds.</p>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+            <span class="atag atag-v">Concepts</span>
+            <span class="atag atag-v">Methodology</span>
+            <span class="atag atag-c">Findings</span>
+            <span class="atag atag-c">Datasets</span>
+            <span class="atag atag-am">Limitations</span>
+            <span class="atag atag-am">Metrics</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- ===================== HOW IT WORKS ===================== -->
+<!-- How it works -->
 <section class="hiw" id="how-it-works">
   <div class="container">
     <div class="hiw-hd">
       <div class="sec-label rev">How it works</div>
-      <h2 class="sec-title rev" style="max-width:560px;margin:0 auto;">Three agents.<br>Infinite insights.</h2>
+      <h2 class="sec-title rev" style="text-align:center;">Three agents.<br>One pipeline.</h2>
     </div>
     <div class="steps stg">
       <div class="step">
         <div class="step-num sn1">1</div>
-        <h3 class="step-title">Upload your library</h3>
-        <p class="step-desc">Drop PDFs or paste arXiv links. ResearchMind ingests papers of any length, any domain — and extracts structured knowledge within seconds.</p>
-        <div class="agent-tag at1">⬡ Paper Analyzer Agent</div>
+        <h3 class="step-title">Add your papers</h3>
+        <p class="step-desc">Paste a PDF URL or type a paper title. ResearchMind fetches and sends the text to Agent 1, which extracts structured knowledge — concepts, methodology, findings, datasets — in seconds.</p>
+        <span class="agent-tag at1">⬡ Paper Analyzer Agent</span>
       </div>
       <div class="step">
         <div class="step-num sn2">2</div>
-        <h3 class="step-title">Agents analyse &amp; connect</h3>
-        <p class="step-desc">Agent 1 parses each paper. Agent 2 finds thematic bridges and generates hypotheses. Agent 3 critiques quality, scores reproducibility, and flags weaknesses.</p>
-        <div class="agent-tag at2">◈ Synthesis Agent</div>
-        <div class="agent-tag at3">🔬 Paper Critic Agent</div>
+        <h3 class="step-title">Agents analyse together</h3>
+        <p class="step-desc">Run synthesis across your whole library. Agent 2 reads every paper, finds specific cross-paper connections, surfaces gaps, and proposes hypotheses. Run Agent 3 on any single paper for a quality critique.</p>
+        <span class="agent-tag at2">◈ Synthesis Agent</span>
+        <span class="agent-tag at3">🔬 Paper Critic</span>
       </div>
       <div class="step">
         <div class="step-num sn3">3</div>
-        <h3 class="step-title">Discover &amp; create</h3>
-        <p class="step-desc">Explore your living 3D graph. Chat with your library. Generate full literature reviews or research proposals in minutes — ready to submit.</p>
-        <div class="agent-tag at3">✦ Output Ready</div>
+        <h3 class="step-title">Explore &amp; ask</h3>
+        <p class="step-desc">Navigate the knowledge graph to see concept connections. Switch to the Chat tab and ask free-form questions across your library. Each paper's critique is saved so you can compare quality across your collection.</p>
+        <span class="agent-tag at3">✦ Results ready</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== DEMO MOCKUP ===================== -->
+<!-- Demo mockup -->
 <section class="demo-sec" id="demo">
   <div class="container">
     <div class="demo-hd">
       <div class="sec-label rev">Product</div>
       <h2 class="sec-title rev">See it in action</h2>
+      <p class="sec-sub rev" style="margin:12px auto 0;text-align:center;">Live at <code style="font-family:var(--mono);font-size:13px;color:var(--c);">http://127.0.0.1:8000</code> — run the FastAPI server to get started.</p>
     </div>
     <div class="mockup rev">
       <div class="mockup-bar">
-        <div class="dot dr"></div>
-        <div class="dot dy"></div>
-        <div class="dot dg"></div>
-        <div class="mockup-url">app.researchmind.ai/research/knowledge-graph</div>
+        <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+        <div class="mockup-url">127.0.0.1:8000 · ResearchMind MVP</div>
       </div>
       <div class="mockup-body">
         <div class="mockup-sidebar">
-          <div class="sidebar-title">My Library (4)</div>
+          <div class="sidebar-title">My Library (3)</div>
           <div class="paper-item active">
-            <div class="paper-dot pd1"></div>
-            Attention Is All You Need
+            <div class="paper-dot pd1"></div>Capturing Dynamics of Mental Well-Being
           </div>
           <div class="paper-item">
-            <div class="paper-dot pd2"></div>
-            AlphaFold: Protein Prediction
+            <div class="paper-dot pd2"></div>Cheap Ways of Extracting Clinical Markers
           </div>
           <div class="paper-item">
-            <div class="paper-dot pd3"></div>
-            Graph Neural Networks Survey
+            <div class="paper-dot pd3"></div>Your next paper…
           </div>
-          <div class="paper-item">
-            <div class="paper-dot pd4"></div>
-            Drug Discovery with ML
-          </div>
-          <div style="margin-top:28px;padding-top:20px;border-top:1px solid var(--border-s);">
-            <div style="font-size:12px;color:var(--ts);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;">Agent Status</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:13px;color:var(--vl);">
-              <div style="width:7px;height:7px;background:var(--v);border-radius:50%;animation:blink 2s infinite;"></div>
-              Paper Analyzer — active
-            </div>
-            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--c);">
-              <div style="width:7px;height:7px;background:var(--c);border-radius:50%;animation:blink 2.5s infinite;"></div>
-              Synthesis Agent — active
-              <br><span style="color:var(--am);">●</span>
-              Paper Critic — active
-            </div>
+          <div style="margin-top:auto;padding-top:16px;border-top:1px solid var(--bds);">
+            <div style="font-size:10px;color:var(--ts);font-family:var(--mono);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Agent Status</div>
+            <div style="font-size:11px;color:var(--vl);display:flex;align-items:center;gap:6px;margin-bottom:7px;"><div style="width:6px;height:6px;background:var(--v);border-radius:50%;animation:blink 2s infinite;"></div>Paper Analyzer</div>
+            <div style="font-size:11px;color:var(--c);display:flex;align-items:center;gap:6px;margin-bottom:7px;"><div style="width:6px;height:6px;background:var(--c);border-radius:50%;animation:blink 2.5s infinite;"></div>Synthesis Agent</div>
+            <div style="font-size:11px;color:var(--am);display:flex;align-items:center;gap:6px;"><div style="width:6px;height:6px;background:var(--am);border-radius:50%;animation:blink 3s infinite;"></div>Paper Critic</div>
           </div>
         </div>
         <div class="mockup-main">
-          <div class="mockup-h">Knowledge Graph — Key Concepts</div>
+          <div class="mockup-h">Agent 2 — Synthesis Output</div>
           <div class="node-grid">
             <div class="node-card">
-              <div class="node-tag">Core Concept</div>
-              <div class="node-text">Self-attention mechanisms in transformer architectures</div>
+              <div class="node-tag">Common Theme</div>
+              <div class="node-text">Clinical NLP for mental health monitoring in social media text</div>
             </div>
             <div class="node-card">
-              <div class="node-tag">Cross-link</div>
-              <div class="node-text">Protein structure prediction using attention weights</div>
+              <div class="node-tag" style="color:var(--c)">Connection</div>
+              <div class="node-text">Both use transformer-based models — Paper A for state modelling, Paper B for marker extraction</div>
             </div>
             <div class="node-card">
-              <div class="node-tag">Research Gap</div>
-              <div class="node-text">No study applies cross-domain embeddings to drug-protein binding</div>
+              <div class="node-tag" style="color:var(--am)">Research Gap</div>
+              <div class="node-text">No study combines adaptive state detection with low-cost marker extraction for real-time clinical use</div>
             </div>
           </div>
-          <div style="font-family:var(--dsp);font-size:14px;font-weight:700;color:var(--ts);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;">Generated Hypotheses</div>
+          <div class="mockup-h" style="margin-top:8px;">Generated Hypotheses</div>
           <div class="hyp-block">
             <div class="hyp-label">Hypothesis #1</div>
-            <div class="hyp-text">"Adapting multi-head attention from NLP to graph-based molecular representations could yield state-of-the-art binding affinity scores — a gap no existing paper has closed."</div>
+            <div class="hyp-text">Combining the adaptive state modelling from Paper 1 with the lightweight extraction pipeline from Paper 2 could yield a real-time mental health early-warning system with &lt;200ms latency on standard hardware.</div>
           </div>
-          <div class="hyp-block" style="background:rgba(34,211,238,.06);border-color:rgba(34,211,238,.18);">
-            <div class="hyp-label" style="color:var(--c);">Hypothesis #2</div>
-            <div class="hyp-text" style="color:var(--tm);">"Dynamic graph convolution layers trained on AlphaFold confidence maps may outperform static GNN baselines for side-chain conformational sampling."</div>
+          <div class="hyp-block" style="background:rgba(34,211,238,.05);border-color:rgba(34,211,238,.15);">
+            <div class="hyp-label" style="color:var(--c)">Hypothesis #2</div>
+            <div class="hyp-text" style="color:var(--tm);">Fine-tuning a shared transformer backbone on both datasets jointly may improve clinical marker F1 by reducing domain shift between adaptive and maladaptive state corpora.</div>
           </div>
         </div>
       </div>
@@ -832,260 +556,242 @@
   </div>
 </section>
 
-<!-- ===================== TECH ===================== -->
+<!-- Tech -->
 <section class="tech" id="tech">
   <div class="container">
     <div class="tech-hd">
-      <div class="sec-label rev">Technology</div>
-      <h2 class="sec-title rev">Built on cutting-edge,<br>open-source AI</h2>
-      <p class="sec-sub rev" style="margin:12px auto 0;text-align:center;">ResearchMind combines the fastest inference layer available with a custom multi-agent orchestration pipeline — and a free tier that never expires.</p>
+      <div class="sec-label rev">Technology Stack</div>
+      <h2 class="sec-title rev">Built on fast,<br>open-source tools.</h2>
+      <p class="sec-sub rev" style="margin:12px auto 0;text-align:center;">Every component used in this MVP is free and open-source.</p>
     </div>
     <div class="tech-grid stg">
       <div class="tc">
         <div class="tc-icon">⚡</div>
         <div class="tc-name">Groq API</div>
-        <div class="tc-desc">700+ tokens/sec inference. Free tier available. Zero cold starts.</div>
+        <div class="tc-desc">Ultra-fast inference layer. Free tier available. Drives all three agents at runtime.</div>
       </div>
       <div class="tc">
         <div class="tc-icon">🦙</div>
-        <div class="tc-name">LLaMA 3.1</div>
-        <div class="tc-desc">Open-source 8B model. State-of-the-art reasoning on academic text.</div>
+        <div class="tc-name">LLaMA 3.1 8B</div>
+        <div class="tc-desc">Open-weight language model from Meta. Served via Groq. Strong academic reasoning.</div>
+      </div>
+      <div class="tc">
+        <div class="tc-icon">🐍</div>
+        <div class="tc-name">FastAPI</div>
+        <div class="tc-desc">Python async backend. Orchestrates the three agents, stores paper analyses in memory.</div>
       </div>
       <div class="tc">
         <div class="tc-icon">🕸️</div>
-        <div class="tc-name">Knowledge Graph</div>
-        <div class="tc-desc">Neo4j graph database stores conceptual relationships across papers.</div>
+        <div class="tc-name">D3.js</div>
+        <div class="tc-desc">Force-directed graph layout for the interactive knowledge graph in the browser.</div>
       </div>
       <div class="tc">
-        <div class="tc-icon">🔍</div>
-        <div class="tc-name">RAG Pipeline</div>
-        <div class="tc-desc">ChromaDB vector search for grounded, hallucination-free answers.</div>
+        <div class="tc-icon">🌐</div>
+        <div class="tc-name">Three.js</div>
+        <div class="tc-desc">WebGL-based 3D particle field on this landing page hero section.</div>
+      </div>
+      <div class="tc">
+        <div class="tc-icon">🎞️</div>
+        <div class="tc-name">GSAP</div>
+        <div class="tc-desc">Scroll-triggered animations and entrance transitions on the landing page.</div>
+      </div>
+      <div class="tc">
+        <div class="tc-icon">🤖</div>
+        <div class="tc-name">AsyncGroq</div>
+        <div class="tc-desc">Async Python client for Groq — enables concurrent agent calls without blocking.</div>
+      </div>
+      <div class="tc">
+        <div class="tc-icon">📦</div>
+        <div class="tc-name">Pure HTML/JS</div>
+        <div class="tc-desc">No React, no bundler. The entire frontend is a single HTML file with vanilla JS.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===================== PRICING ===================== -->
-<section class="pricing" id="pricing">
+<!-- Team -->
+<section class="team" id="team">
   <div class="container">
-    <div class="pricing-hd">
-      <div class="sec-label rev">Pricing</div>
-      <h2 class="sec-title rev">Start free. Scale as you grow.</h2>
+    <div class="team-hd">
+      <div class="sec-label rev">The Team</div>
+      <h2 class="sec-title rev">Built by four students<br>for MPA 2026.</h2>
     </div>
-    <div class="pricing-grid stg">
+    <div class="team-grid stg">
 
-      <!-- Researcher -->
-      <div class="pc">
-        <div class="pc-name">Researcher</div>
-        <div class="pc-desc">For individuals and students just getting started.</div>
-        <div class="pc-price">
-          <span class="pc-cur">$</span>
-          <span class="pc-amt">0</span>
-          <span class="pc-per">/month</span>
+      <div class="member">
+        <div class="member-avatar av1">TM</div>
+        <div class="member-name">Teodor Mihailescu</div>
+        <div class="member-role">Lead Developer &amp; AI Architect</div>
+        <div class="member-tags">
+          <span class="mtag" style="background:rgba(139,92,246,.1);color:var(--vl);border:1px solid rgba(139,92,246,.2)">FastAPI</span>
+          <span class="mtag" style="background:rgba(139,92,246,.1);color:var(--vl);border:1px solid rgba(139,92,246,.2)">Agent Design</span>
+          <span class="mtag" style="background:rgba(139,92,246,.1);color:var(--vl);border:1px solid rgba(139,92,246,.2)">Frontend</span>
         </div>
-        <ul class="pc-feats">
-          <li><span class="chk">✓</span> 50 papers / month</li>
-          <li><span class="chk">✓</span> Basic knowledge graph</li>
-          <li><span class="chk">✓</span> 100 AI queries / month</li>
-          <li><span class="chk">✓</span> Export to BibTeX</li>
-          <li><span class="cross">—</span> <span style="opacity:.4">Hypothesis generator</span></li>
-          <li><span class="cross">—</span> <span style="opacity:.4">Literature review writer</span></li>
-        </ul>
-        <a href="#" class="btn btn-ghost" style="width:100%;justify-content:center;">Get started free</a>
       </div>
 
-      <!-- Scholar (featured) -->
-      <div class="pc pc-feat">
-        <div class="pc-badge">Most Popular</div>
-        <div class="pc-name">Scholar</div>
-        <div class="pc-desc">For PhD students and active researchers.</div>
-        <div class="pc-price">
-          <span class="pc-cur">$</span>
-          <span class="pc-amt">29</span>
-          <span class="pc-per">/month</span>
+      <div class="member">
+        <div class="member-avatar av2">AD</div>
+        <div class="member-name">Adela Danescu</div>
+        <div class="member-role">Backend Developer &amp; QA</div>
+        <div class="member-tags">
+          <span class="mtag" style="background:rgba(34,211,238,.08);color:var(--c);border:1px solid rgba(34,211,238,.18)">Python</span>
+          <span class="mtag" style="background:rgba(34,211,238,.08);color:var(--c);border:1px solid rgba(34,211,238,.18)">Testing</span>
+          <span class="mtag" style="background:rgba(34,211,238,.08);color:var(--c);border:1px solid rgba(34,211,238,.18)">API</span>
         </div>
-        <ul class="pc-feats">
-          <li><span class="chk">✓</span> Unlimited papers</li>
-          <li><span class="chk">✓</span> Full 3D knowledge graph</li>
-          <li><span class="chk">✓</span> Unlimited AI queries</li>
-          <li><span class="chk">✓</span> Hypothesis generator</li>
-          <li><span class="chk">✓</span> Literature review writer</li>
-          <li><span class="chk">✓</span> Priority inference queue</li>
-        </ul>
-        <a href="#" class="btn btn-primary" style="width:100%;justify-content:center;">Start 14-day trial</a>
       </div>
 
-      <!-- Lab -->
-      <div class="pc">
-        <div class="pc-name">Lab</div>
-        <div class="pc-desc">For research groups, labs, and academic departments.</div>
-        <div class="pc-price">
-          <span class="pc-cur">$</span>
-          <span class="pc-amt">99</span>
-          <span class="pc-per">/month</span>
+      <div class="member">
+        <div class="member-avatar av3">AS</div>
+        <div class="member-name">Anastasia Sandu</div>
+        <div class="member-role">Business &amp; Product Strategy</div>
+        <div class="member-tags">
+          <span class="mtag" style="background:rgba(245,158,11,.08);color:var(--am);border:1px solid rgba(245,158,11,.18)">SWOT</span>
+          <span class="mtag" style="background:rgba(245,158,11,.08);color:var(--am);border:1px solid rgba(245,158,11,.18)">Lean Canvas</span>
+          <span class="mtag" style="background:rgba(245,158,11,.08);color:var(--am);border:1px solid rgba(245,158,11,.18)">Market</span>
         </div>
-        <ul class="pc-feats">
-          <li><span class="chk">✓</span> Everything in Scholar</li>
-          <li><span class="chk">✓</span> Up to 12 team members</li>
-          <li><span class="chk">✓</span> Shared knowledge graphs</li>
-          <li><span class="chk">✓</span> REST API access</li>
-          <li><span class="chk">✓</span> SSO &amp; admin dashboard</li>
-          <li><span class="chk">✓</span> Dedicated support</li>
-        </ul>
-        <a href="#" class="btn btn-ghost" style="width:100%;justify-content:center;">Contact sales</a>
       </div>
+
+      <div class="member">
+        <div class="member-avatar av4">SH</div>
+        <div class="member-name">Selena Hurloi</div>
+        <div class="member-role">Design &amp; Pitch</div>
+        <div class="member-tags">
+          <span class="mtag" style="background:rgba(16,185,129,.08);color:var(--em);border:1px solid rgba(16,185,129,.18)">UI/UX</span>
+          <span class="mtag" style="background:rgba(16,185,129,.08);color:var(--em);border:1px solid rgba(16,185,129,.18)">Pitch Deck</span>
+          <span class="mtag" style="background:rgba(16,185,129,.08);color:var(--em);border:1px solid rgba(16,185,129,.18)">Branding</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- ===================== CTA ===================== -->
+<!-- CTA -->
 <section class="cta">
   <div class="cta-glow"></div>
   <div class="container" style="position:relative;z-index:1;">
-    <h2 class="cta-title rev">Ready to map<br><span class="gtext">your knowledge universe?</span></h2>
-    <p class="cta-sub rev">Join 12,400 researchers already using ResearchMind — free forever.</p>
+    <h2 class="cta-title rev">Start exploring<br><span class="gtext">your research library.</span></h2>
+    <p class="cta-sub rev">Add a paper, run synthesis, critique a study — all running locally on your machine.</p>
     <div class="cta-actions rev">
-      <a href="researchmind-mvp/static/app.html" class="btn btn-primary btn-lg" style="font-size:18px;padding:20px 52px;">Launch ResearchMind — it's free</a>
-      <a href="#features" class="btn btn-ghost btn-lg">Learn more</a>
+      <a href="researchmind-mvp/static/app.html" class="btn btn-primary btn-lg" style="font-size:17px;padding:18px 48px;">Open ResearchMind →</a>
+      <a href="https://github.com/Teo1230/MPA/tree/main" target="_blank" rel="noopener" class="btn btn-ghost btn-lg" style="display:inline-flex;align-items:center;gap:9px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        View on GitHub
+      </a>
+      <a href="#deliverables" class="btn btn-ghost btn-lg">View all deliverables</a>
     </div>
   </div>
 </section>
 
-<!-- ===================== FOOTER ===================== -->
+<!-- Deliverables -->
+<section class="deliverables" id="deliverables" style="background:rgba(139,92,246,.04);border-top:1px solid var(--bds);">
+  <div class="container">
+    <div class="sec-label rev" style="text-align:center;margin-bottom:12px;">MPA 2026 — Project Deliverables</div>
+    <h2 class="sec-title rev" style="text-align:center;margin-bottom:40px;">All deliverables in one place</h2>
+    <div class="del-grid">
+      <a href="researchmind-mvp/static/app.html" class="del-card">
+        <span class="del-icon">⚡</span>
+        <span class="del-name">MVP App</span>
+        <span class="del-sub">3 AI Agents · Live demo<br>FastAPI + Groq</span>
+      </a>
+      <a href="researchmind-business.docx" download class="del-card">
+        <span class="del-icon">📄</span>
+        <span class="del-name">Business Foundation</span>
+        <span class="del-sub">SWOT · Gantt · Lean Canvas<br>Risk Register · Team</span>
+      </a>
+      <a href="#" class="del-card">
+        <span class="del-icon">🌐</span>
+        <span class="del-name">Landing Page</span>
+        <span class="del-sub">You are here<br>Three.js · GSAP</span>
+      </a>
+      <a href="researchmind-pitch.pptx" download class="del-card">
+        <span class="del-icon">🎯</span>
+        <span class="del-name">Pitch Deck</span>
+        <span class="del-sub">10 slides · Seed round<br>Dark theme · pptxgenjs</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
 <footer>
   <div class="container">
     <div class="footer-in">
       <div>
-        <a href="#" class="logo" style="margin-bottom:10px;display:inline-flex;">
-          <div class="logo-mark"><img src="logo.png" alt="ResearchMind logo" /></div>
+        <a href="#" class="logo" style="margin-bottom:6px;display:inline-flex;">
+          <div class="logo-mark"><img src="logo.png" alt="ResearchMind" /></div>
           ResearchMind
         </a>
-        <div class="footer-cp">© 2026 ResearchMind AI, SRL &nbsp;·&nbsp; AI Research Intelligence &nbsp;·&nbsp; Built for MPA 2026</div>
+        <div class="footer-cp">© 2026 ResearchMind — Teodor Mihailescu, Adela Danescu, Anastasia Sandu, Selena Hurloi &nbsp;·&nbsp; Built for MPA 2026</div>
       </div>
       <div class="footer-links">
         <a href="researchmind-mvp/static/app.html">MVP App</a>
         <a href="researchmind-business.docx" download>Business Doc</a>
         <a href="researchmind-pitch.pptx" download>Pitch Deck</a>
-        <a href="mailto:hello@researchmind.ai">Contact</a>
+        <a href="mailto:teodormihailscu12@gmail.com">Contact</a>
       </div>
     </div>
   </div>
-<!-- ===================== MPA DELIVERABLES ===================== -->
-<section style="padding:64px 0;background:rgba(139,92,246,0.04);border-top:1px solid rgba(139,92,246,0.12);position:relative;z-index:1;">
-  <div class="container">
-    <div class="sec-label" style="text-align:center;margin-bottom:10px;">MPA 2026 — Project Deliverables</div>
-    <h2 style="font-family:var(--dsp);font-size:28px;font-weight:800;text-align:center;margin-bottom:36px;letter-spacing:-.02em;">All deliverables in one place</h2>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:900px;margin:0 auto;">
-      <a href="researchmind-mvp/static/app.html" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 20px;background:rgba(255,255,255,0.035);border:1px solid rgba(139,92,246,0.25);border-radius:16px;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='rgba(139,92,246,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.035)'">
-        <span style="font-size:28px;">⚡</span>
-        <span style="font-family:var(--dsp);font-weight:700;font-size:14px;color:var(--t);">MVP App</span>
-        <span style="font-size:11px;color:var(--ts);">3 AI Agents · Live demo</span>
-      </a>
-      <a href="researchmind-business.docx" download style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 20px;background:rgba(255,255,255,0.035);border:1px solid rgba(139,92,246,0.25);border-radius:16px;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='rgba(139,92,246,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.035)'">
-        <span style="font-size:28px;">📄</span>
-        <span style="font-family:var(--dsp);font-weight:700;font-size:14px;color:var(--t);">Business Foundation</span>
-        <span style="font-size:11px;color:var(--ts);">SWOT · Gantt · Lean Canvas</span>
-      </a>
-      <a href="#" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 20px;background:rgba(255,255,255,0.035);border:1px solid rgba(139,92,246,0.25);border-radius:16px;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='rgba(139,92,246,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.035)'">
-        <span style="font-size:28px;">🌐</span>
-        <span style="font-family:var(--dsp);font-weight:700;font-size:14px;color:var(--t);">Landing Page</span>
-        <span style="font-size:11px;color:var(--ts);">You are here</span>
-      </a>
-      <a href="researchmind-pitch.pptx" download style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:28px 20px;background:rgba(255,255,255,0.035);border:1px solid rgba(139,92,246,0.25);border-radius:16px;text-decoration:none;transition:all .25s;" onmouseover="this.style.background='rgba(139,92,246,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.035)'">
-        <span style="font-size:28px;">🎯</span>
-        <span style="font-family:var(--dsp);font-weight:700;font-size:14px;color:var(--t);">Pitch Deck</span>
-        <span style="font-size:11px;color:var(--ts);">10 slides · Seed round</span>
-      </a>
-    </div>
-  </div>
-</section>
-
 </footer>
 
-<!-- ===================== SCRIPTS ===================== -->
 <script>
 gsap.registerPlugin(ScrollTrigger);
 
-/* ---- Nav scroll ---- */
 window.addEventListener('scroll', () => {
   document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
 });
 
-/* ---- Hero entrance ---- */
 const heroTl = gsap.timeline({ delay: 0.2 });
 heroTl
   .to('#hbadge', { opacity:1, y:0, duration:.7, ease:'power3.out' })
   .to('#hh1',    { opacity:1, y:0, duration:.9, ease:'power3.out' }, '-=.4')
   .to('#hsub',   { opacity:1, y:0, duration:.8, ease:'power3.out' }, '-=.55')
   .to('#hbtns',  { opacity:1, y:0, duration:.8, ease:'power3.out' }, '-=.55')
-  .to('#hstats', { opacity:1, y:0, duration:.8, ease:'power3.out' }, '-=.5');
+  .to('#hpills', { opacity:1, y:0, duration:.8, ease:'power3.out' }, '-=.5');
 
-/* ---- Scroll reveals ---- */
 gsap.utils.toArray('.rev').forEach(el => {
-  if (el.closest('.hero') || el.id) return;
+  if (el.closest('.hero')) return;
   gsap.to(el, {
     opacity:1, y:0, duration:.85, ease:'power3.out',
-    scrollTrigger:{ trigger:el, start:'top 86%', once:true }
+    scrollTrigger:{ trigger:el, start:'top 87%', once:true }
   });
 });
 
-/* ---- Stagger groups ---- */
 gsap.utils.toArray('.stg').forEach(wrap => {
+  // Set initial state via GSAP inline styles (not CSS) so clearing style.transform later returns to translateY(0), not the CSS value
+  gsap.set(wrap.children, { opacity: 0, y: 18 });
   gsap.to(wrap.children, {
-    opacity:1, y:0, duration:.7, stagger:.11, ease:'power3.out',
-    scrollTrigger:{ trigger:wrap, start:'top 82%', once:true }
+    opacity:1, y:0, duration:.7, stagger:.1, ease:'power3.out',
+    scrollTrigger:{ trigger:wrap, start:'top 83%', once:true }
   });
 });
 
-/* ---- Counter animation ---- */
-gsap.utils.toArray('[data-count]').forEach(el => {
-  const target = parseInt(el.dataset.count);
-  ScrollTrigger.create({
-    trigger: el, start:'top 85%', once:true,
-    onEnter: () => {
-      gsap.to({ v:0 }, {
-        v: target, duration:2.2, ease:'power2.out',
-        onUpdate() { el.textContent = Math.round(this.targets()[0].v).toLocaleString(); }
-      });
-    }
-  });
-});
-
-/* ---- 3D Tilt on cards ---- */
-document.querySelectorAll('.bc, .step, .pc, .tc').forEach(card => {
+document.querySelectorAll('.bc, .step, .tc, .member, .agent-card').forEach(card => {
   card.addEventListener('mousemove', e => {
     const r = card.getBoundingClientRect();
     const x = (e.clientX - r.left) / r.width  - .5;
     const y = (e.clientY - r.top)  / r.height - .5;
     card.style.transition = 'transform .08s ease';
-    card.style.transform  = `perspective(900px) rotateX(${-y*7}deg) rotateY(${x*7}deg) translateY(-3px)`;
+    card.style.transform  = `perspective(900px) rotateX(${-y*6}deg) rotateY(${x*6}deg) translateY(-3px)`;
   });
   card.addEventListener('mouseleave', () => {
-    card.style.transition = 'transform .45s ease';
-    card.style.transform  = '';
+    card.style.transition = 'transform .4s ease';
+    card.style.transform  = 'translateY(0)';  // explicit reset — not '' — avoids falling back to any CSS transform rule
   });
 });
 
-/* ====================================================
-   THREE.JS — Hero Neural Network
-==================================================== */
+/* Three.js Hero */
 (function() {
   const canvas = document.getElementById('hero-canvas');
-  const W = window.innerWidth, H = window.innerHeight;
+  const W = innerWidth, H = innerHeight;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(58, W/H, .1, 1000);
   camera.position.z = 9;
-
   const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
   renderer.setSize(W, H);
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
-  const N = 160;
-  const pos = [];
-  const vel = [];
-  const group = new THREE.Group();
-
-  /* Nodes */
+  const N = 160, pos = [], vel = [], group = new THREE.Group();
   for (let i = 0; i < N; i++) {
     const theta = Math.random() * Math.PI * 2;
     const phi   = Math.acos(2 * Math.random() - 1);
@@ -1095,132 +801,76 @@ document.querySelectorAll('.bc, .step, .pc, .tc').forEach(card => {
       r * Math.sin(phi) * Math.sin(theta),
       r * Math.cos(phi) * .9
     );
-    pos.push(p);
-    vel.push(new THREE.Vector3(
-      (Math.random()-.5) * .004,
-      (Math.random()-.5) * .004,
-      (Math.random()-.5) * .003
-    ));
+    pos.push(p); vel.push(new THREE.Vector3((Math.random()-.5)*.004,(Math.random()-.5)*.004,(Math.random()-.5)*.003));
     const hi = Math.random() > .65;
-    const geo = new THREE.SphereGeometry(hi ? .07 : .035, 8, 8);
-    const mat = new THREE.MeshBasicMaterial({
-      color: hi ? 0x22d3ee : 0xffffff,
-      transparent: true, opacity: hi ? .95 : .38
-    });
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.copy(p);
-    group.add(mesh);
+    const mesh = new THREE.Mesh(
+      new THREE.SphereGeometry(hi ? .07 : .035, 8, 8),
+      new THREE.MeshBasicMaterial({ color: hi ? 0x22d3ee : 0xffffff, transparent:true, opacity: hi ? .95 : .38 })
+    );
+    mesh.position.copy(p); group.add(mesh);
   }
   scene.add(group);
 
-  /* Connections */
-  const lPoints = [];
-  const THRESH = 2.6;
+  const lPts = [];
   for (let i = 0; i < pos.length; i++)
     for (let j = i+1; j < pos.length; j++)
-      if (pos[i].distanceTo(pos[j]) < THRESH) {
-        lPoints.push(pos[i].clone());
-        lPoints.push(pos[j].clone());
-      }
-
-  const lGeo = new THREE.BufferGeometry().setFromPoints(lPoints);
-  const lMat = new THREE.LineBasicMaterial({
-    color:0x8b5cf6, transparent:true, opacity:.18,
-    blending: THREE.AdditiveBlending, depthWrite:false
-  });
-  const lines = new THREE.LineSegments(lGeo, lMat);
+      if (pos[i].distanceTo(pos[j]) < 2.6) { lPts.push(pos[i].clone()); lPts.push(pos[j].clone()); }
+  const lines = new THREE.LineSegments(
+    new THREE.BufferGeometry().setFromPoints(lPts),
+    new THREE.LineBasicMaterial({ color:0x8b5cf6, transparent:true, opacity:.18, blending:THREE.AdditiveBlending, depthWrite:false })
+  );
   scene.add(lines);
 
-  /* Mouse parallax */
   let mx = 0, my = 0;
-  window.addEventListener('mousemove', e => {
-    mx = (e.clientX / innerWidth  - .5) * 2;
-    my = -(e.clientY / innerHeight - .5) * 2;
-  });
-
-  /* Resize */
+  window.addEventListener('mousemove', e => { mx = (e.clientX/innerWidth-.5)*2; my = -(e.clientY/innerHeight-.5)*2; });
   window.addEventListener('resize', () => {
     const w = innerWidth, h = innerHeight;
-    camera.aspect = w/h; camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
+    camera.aspect = w/h; camera.updateProjectionMatrix(); renderer.setSize(w, h);
   });
 
-  let frame = 0;
-  function animate() {
+  (function animate() {
     requestAnimationFrame(animate);
-    frame++;
     const t = Date.now() * .001;
-    group.rotation.y = t * .09;
-    group.rotation.x = Math.sin(t * .05) * .15;
+    group.rotation.y = t * .09; group.rotation.x = Math.sin(t*.05)*.15;
     lines.rotation.copy(group.rotation);
-    camera.position.x += (mx * 2 - camera.position.x) * .025;
-    camera.position.y += (my * 1.2 - camera.position.y) * .025;
-    camera.lookAt(0, 0, 0);
-    renderer.render(scene, camera);
-  }
-  animate();
+    camera.position.x += (mx*2 - camera.position.x)*.025;
+    camera.position.y += (my*1.2 - camera.position.y)*.025;
+    camera.lookAt(0,0,0); renderer.render(scene, camera);
+  })();
 })();
 
-/* ====================================================
-   CANVAS 2D — Mini Knowledge Graph (Feature Card)
-==================================================== */
+/* Mini Canvas – Knowledge Graph */
 (function() {
   const canvas = document.getElementById('mini-canvas');
   if (!canvas) return;
   const W = canvas.parentElement.offsetWidth;
   const H = canvas.parentElement.offsetHeight;
-  canvas.width  = W;
-  canvas.height = H;
+  canvas.width = W; canvas.height = H;
   const ctx = canvas.getContext('2d');
-
-  const nodes = Array.from({ length:22 }, () => ({
-    x: Math.random() * W, y: Math.random() * H,
-    r: 3 + Math.random() * 5,
-    color: Math.random() > .45 ? '#8b5cf6' : '#22d3ee',
-    vx: (Math.random()-.5) * .35,
-    vy: (Math.random()-.5) * .35,
+  const nodes = Array.from({ length:20 }, () => ({
+    x: Math.random()*W, y: Math.random()*H,
+    r: 3 + Math.random()*5,
+    color: Math.random()>.45 ? '#8b5cf6' : '#22d3ee',
+    vx: (Math.random()-.5)*.35, vy: (Math.random()-.5)*.35,
   }));
-
-  function draw() {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = '#08081f';
-    ctx.fillRect(0, 0, W, H);
-
-    /* edges */
-    for (let i = 0; i < nodes.length; i++)
-      for (let j = i+1; j < nodes.length; j++) {
-        const dx = nodes[j].x - nodes[i].x;
-        const dy = nodes[j].y - nodes[i].y;
-        const d  = Math.hypot(dx, dy);
-        if (d < 110) {
-          ctx.beginPath();
-          ctx.moveTo(nodes[i].x, nodes[i].y);
-          ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = `rgba(139,92,246,${.5*(1-d/110)})`;
-          ctx.lineWidth   = .8;
-          ctx.stroke();
-        }
+  (function draw() {
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle = '#08081f'; ctx.fillRect(0,0,W,H);
+    for (let i=0;i<nodes.length;i++)
+      for (let j=i+1;j<nodes.length;j++) {
+        const dx=nodes[j].x-nodes[i].x, dy=nodes[j].y-nodes[i].y, d=Math.hypot(dx,dy);
+        if (d<110) { ctx.beginPath(); ctx.moveTo(nodes[i].x,nodes[i].y); ctx.lineTo(nodes[j].x,nodes[j].y); ctx.strokeStyle=`rgba(139,92,246,${.5*(1-d/110)})`; ctx.lineWidth=.8; ctx.stroke(); }
       }
-
-    /* nodes */
     nodes.forEach(n => {
-      /* glow */
-      const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 4);
-      g.addColorStop(0, n.color + '55');
-      g.addColorStop(1, 'transparent');
-      ctx.beginPath(); ctx.arc(n.x, n.y, n.r * 4, 0, Math.PI*2);
-      ctx.fillStyle = g; ctx.fill();
-      /* dot */
-      ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
-      ctx.fillStyle = n.color; ctx.fill();
-      /* move */
-      n.x += n.vx; n.y += n.vy;
-      if (n.x < 0 || n.x > W) n.vx *= -1;
-      if (n.y < 0 || n.y > H) n.vy *= -1;
+      const g=ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r*4);
+      g.addColorStop(0,n.color+'55'); g.addColorStop(1,'transparent');
+      ctx.beginPath(); ctx.arc(n.x,n.y,n.r*4,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
+      ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2); ctx.fillStyle=n.color; ctx.fill();
+      n.x+=n.vx; n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1; if(n.y<0||n.y>H)n.vy*=-1;
     });
     requestAnimationFrame(draw);
-  }
-  draw();
+  })();
 })();
 </script>
 </body>
