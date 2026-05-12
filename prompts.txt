@@ -1,0 +1,396 @@
+read the world and make a full project in what language u want to get a 10 and use latests liraries, fonts, animation very nice and not a commnun thing be different and think outside of the box, and for ai use smt free
+
+continue and after i added logo in folder and i want a fully app wokring even configure agent groq, and some errors mihailescuteodor@Teodors-MacBook-Pro nexus-mvp % pico .env
+mihailescuteodor@Teodors-MacBook-Pro nexus-mvp % python3 -m uvicorn main:app --reload 
+INFO:     Will watch for changes in these directories: ['/Users/mihailescuteodor/Downloads/MPA/nexus-mvp']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [20634] using WatchFiles
+INFO:     Started server process [20636]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:60825 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60828 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60828 - "GET /api/papers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60832 - "POST /api/analyze HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/middleware/cors.py", line 148, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/routing.py", line 756, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/routing.py", line 776, in app
+    await route.handle(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/routing.py", line 72, in app
+    response = await func(request)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+  File "/Users/mihailescuteodor/Downloads/MPA/nexus-mvp/main.py", line 303, in analyze_paper
+    analysis = await paper_analyzer_agent(payload.text, payload.title)
+  File "/Users/mihailescuteodor/Downloads/MPA/nexus-mvp/main.py", line 117, in paper_analyzer_agent
+    groq = get_client()
+  File "/Users/mihailescuteodor/Downloads/MPA/nexus-mvp/main.py", line 66, in get_client
+    client = Groq(api_key=GROQ_API_KEY)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/groq/_client.py", line 99, in __init__
+    super().__init__(
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/groq/_base_client.py", line 824, in __init__
+    self._client = http_client or SyncHttpxClientWrapper(
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/groq/_base_client.py", line 722, in __init__
+    super().__init__(**kwargs)
+TypeError: __init__() got an unexpected keyword argument 'proxies'
+INFO:     127.0.0.1:60826 - "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60843 - "POST /api/analyze HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/uvicorn/protocols/http/httptools_impl.py", line 399, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/uvicorn/middleware/proxy_headers.py", line 70, in __call__
+    return await self.app(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/fastapi/applications.py", line 1054, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/applications.py", line 123, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/middleware/cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/middleware/cors.py", line 148, in simple_response
+    await self.app(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/middleware/exceptions.py", line 65, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/routing.py", line 756, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/routing.py", line 776, in app
+    await route.handle(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/routing.py", line 297, in handle
+    await self.app(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/routing.py", line 77, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/_exception_handler.py", line 64, in wrapped_app
+    raise exc
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/starlette/routing.py", line 72, in app
+    response = await func(request)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/fastapi/routing.py", line 278, in app
+    raw_response = await run_endpoint_function(
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+  File "/Users/mihailescuteodor/Downloads/MPA/nexus-mvp/main.py", line 303, in analyze_paper
+    analysis = await paper_analyzer_agent(payload.text, payload.title)
+  File "/Users/mihailescuteodor/Downloads/MPA/nexus-mvp/main.py", line 117, in paper_analyzer_agent
+    groq = get_client()
+  File "/Users/mihailescuteodor/Downloads/MPA/nexus-mvp/main.py", line 66, in get_client
+    client = Groq(api_key=GROQ_API_KEY)
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/groq/_client.py", line 99, in __init__
+    super().__init__(
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/groq/_base_client.py", line 824, in __init__
+    self._client = http_client or SyncHttpxClientWrapper(
+  File "/Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages/groq/_base_client.py", line 722, in __init__
+    super().__init__(**kwargs)
+TypeError: __init__() got an unexpected keyword argument 'proxies',
+
+some parts of ui are not good
+
+mihailescuteodor@Teodors-MacBook-Pro nexus-mvp % pip install -r requirements.txt && uvicorn main:app --reload
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: fastapi==0.111.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from -r requirements.txt (line 1)) (0.111.0)
+Requirement already satisfied: uvicorn==0.30.1 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from uvicorn[standard]==0.30.1->-r requirements.txt (line 2)) (0.30.1)
+Requirement already satisfied: groq==0.9.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from -r requirements.txt (line 3)) (0.9.0)
+Collecting httpx<0.28.0 (from -r requirements.txt (line 4))
+  Downloading httpx-0.27.2-py3-none-any.whl.metadata (7.1 kB)
+Requirement already satisfied: python-dotenv==1.0.1 in /Library/Python/3.9/site-packages (from -r requirements.txt (line 5)) (1.0.1)
+Requirement already satisfied: pydantic==2.7.1 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from -r requirements.txt (line 6)) (2.7.1)
+Requirement already satisfied: starlette<0.38.0,>=0.37.2 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from fastapi==0.111.0->-r requirements.txt (line 1)) (0.37.2)
+Requirement already satisfied: typing-extensions>=4.8.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from fastapi==0.111.0->-r requirements.txt (line 1)) (4.15.0)
+Requirement already satisfied: fastapi-cli>=0.0.2 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from fastapi==0.111.0->-r requirements.txt (line 1)) (0.0.22)
+Requirement already satisfied: jinja2>=2.11.2 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from fastapi==0.111.0->-r requirements.txt (line 1)) (3.1.2)
+Requirement already satisfied: python-multipart>=0.0.7 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from fastapi==0.111.0->-r requirements.txt (line 1)) (0.0.20)
+Requirement already satisfied: ujson!=4.0.2,!=4.1.0,!=4.2.0,!=4.3.0,!=5.0.0,!=5.1.0,>=4.0.1 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from fastapi==0.111.0->-r requirements.txt (line 1)) (5.11.0)
+Requirement already satisfied: orjson>=3.2.1 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from fastapi==0.111.0->-r requirements.txt (line 1)) (3.11.5)
+Requirement already satisfied: email_validator>=2.0.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from fastapi==0.111.0->-r requirements.txt (line 1)) (2.3.0)
+Requirement already satisfied: annotated-types>=0.4.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from pydantic==2.7.1->-r requirements.txt (line 6)) (0.6.0)
+Requirement already satisfied: pydantic-core==2.18.2 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from pydantic==2.7.1->-r requirements.txt (line 6)) (2.18.2)
+Requirement already satisfied: click>=7.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from uvicorn==0.30.1->uvicorn[standard]==0.30.1->-r requirements.txt (line 2)) (8.1.7)
+Requirement already satisfied: h11>=0.8 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from uvicorn==0.30.1->uvicorn[standard]==0.30.1->-r requirements.txt (line 2)) (0.16.0)
+Requirement already satisfied: anyio<5,>=3.5.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from groq==0.9.0->-r requirements.txt (line 3)) (4.11.0)
+Requirement already satisfied: distro<2,>=1.7.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from groq==0.9.0->-r requirements.txt (line 3)) (1.9.0)
+Requirement already satisfied: sniffio in /Library/Python/3.9/site-packages (from groq==0.9.0->-r requirements.txt (line 3)) (1.3.0)
+Requirement already satisfied: httptools>=0.5.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from uvicorn[standard]==0.30.1->-r requirements.txt (line 2)) (0.7.1)
+Requirement already satisfied: pyyaml>=5.1 in /Library/Python/3.9/site-packages (from uvicorn[standard]==0.30.1->-r requirements.txt (line 2)) (6.0.1)
+Requirement already satisfied: uvloop!=0.15.0,!=0.15.1,>=0.14.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from uvicorn[standard]==0.30.1->-r requirements.txt (line 2)) (0.22.1)
+Requirement already satisfied: watchfiles>=0.13 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from uvicorn[standard]==0.30.1->-r requirements.txt (line 2)) (1.1.1)
+Requirement already satisfied: websockets>=10.4 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from uvicorn[standard]==0.30.1->-r requirements.txt (line 2)) (15.0.1)
+Requirement already satisfied: certifi in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from httpx<0.28.0->-r requirements.txt (line 4)) (2023.7.22)
+Requirement already satisfied: httpcore==1.* in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from httpx<0.28.0->-r requirements.txt (line 4)) (1.0.9)
+Requirement already satisfied: idna in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from httpx<0.28.0->-r requirements.txt (line 4)) (3.4)
+Requirement already satisfied: exceptiongroup>=1.0.2 in /Library/Python/3.9/site-packages (from anyio<5,>=3.5.0->groq==0.9.0->-r requirements.txt (line 3)) (1.1.3)
+Requirement already satisfied: dnspython>=2.0.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from email_validator>=2.0.0->fastapi==0.111.0->-r requirements.txt (line 1)) (2.7.0)
+Requirement already satisfied: typer>=0.16.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from fastapi-cli>=0.0.2->fastapi==0.111.0->-r requirements.txt (line 1)) (0.23.2)
+Requirement already satisfied: rich-toolkit>=0.14.8 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from fastapi-cli>=0.0.2->fastapi==0.111.0->-r requirements.txt (line 1)) (0.19.7)
+Requirement already satisfied: tomli>=2.0.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from fastapi-cli>=0.0.2->fastapi==0.111.0->-r requirements.txt (line 1)) (2.0.2)
+Requirement already satisfied: MarkupSafe>=2.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from jinja2>=2.11.2->fastapi==0.111.0->-r requirements.txt (line 1)) (2.1.3)
+Requirement already satisfied: rich>=13.7.1 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from rich-toolkit>=0.14.8->fastapi-cli>=0.0.2->fastapi==0.111.0->-r requirements.txt (line 1)) (15.0.0)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from rich>=13.7.1->rich-toolkit>=0.14.8->fastapi-cli>=0.0.2->fastapi==0.111.0->-r requirements.txt (line 1)) (3.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from rich>=13.7.1->rich-toolkit>=0.14.8->fastapi-cli>=0.0.2->fastapi==0.111.0->-r requirements.txt (line 1)) (2.18.0)
+Requirement already satisfied: mdurl~=0.1 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from markdown-it-py>=2.2.0->rich>=13.7.1->rich-toolkit>=0.14.8->fastapi-cli>=0.0.2->fastapi==0.111.0->-r requirements.txt (line 1)) (0.1.2)
+Requirement already satisfied: shellingham>=1.3.0 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from typer>=0.16.0->fastapi-cli>=0.0.2->fastapi==0.111.0->-r requirements.txt (line 1)) (1.5.4)
+Requirement already satisfied: annotated-doc>=0.0.2 in /Users/mihailescuteodor/Library/Python/3.9/lib/python/site-packages (from typer>=0.16.0->fastapi-cli>=0.0.2->fastapi==0.111.0->-r requirements.txt (line 1)) (0.0.4)
+Downloading httpx-0.27.2-py3-none-any.whl (76 kB)
+Installing collected packages: httpx
+  Attempting uninstall: httpx
+    Found existing installation: httpx 0.28.1
+    Uninstalling httpx-0.28.1:
+      Successfully uninstalled httpx-0.28.1
+  WARNING: The script httpx is installed in '/Users/mihailescuteodor/Library/Python/3.9/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+ollama 0.6.1 requires pydantic>=2.9, but you have pydantic 2.7.1 which is incompatible.
+Successfully installed httpx-0.27.2
+zsh: command not found: uvicorn
+mihailescuteodor@Teodors-MacBook-Pro nexus-mvp % and create also a readme
+
+http://127.0.0.1:8000/nexus-landing.htmlmihailescuteodor@Teodors-MacBook-Pro nexus-mvp % python3 -m uvicorn main:app --reload --port 8000
+
+INFO:     Will watch for changes in these directories: ['/Users/mihailescuteodor/Downloads/MPA/nexus-mvp']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [23547] using WatchFiles
+INFO:     Started server process [23549]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:61756 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61756 - "GET /logo.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61760 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61760 - "GET /api/papers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61756 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61760 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61760 - "GET /api/papers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61756 - "GET /nexus-landing.html HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61764 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61764 - "GET /api/papers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61757 - "GET /nexus-landing.html HTTP/1.1" 404 Not Found
+
+Show less
+
+http://127.0.0.1:8000/nexus-mvp/static/app.html samemake logo bigger and change nexux name and also i want a profesional docx  please read all files and then see what is implemented MPA 2026 proiect.docx and members of team are Teodor Mihailecu, Anastasia Sandu, and Selena Hurloi, and i want a 10 for project so check all points and dont limit to 2 agends only
+
+
+still are some. NEXUS AI and folder or files anme also in reademe ...
+
+ups and i did forget to add Adelna Danescu to the team so can u addd \
+
+P/1.1" 404 Not Found
+INFO:     127.0.0.1:61916 - "GET /researchmind-mvp/researchmind-landing.html HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61926 - "GET /researchmind-mvp/researchmind-landing.html HTTP/1.1" 404 Not Found
+
+the ppt is not likened how is sayd in MPA 2026 proiect.docx read again carefully
+
+also where is implemented the agent 3??? theere are some missing things as i can see in word ppt, original tasks MPA 2026 proiect.docx ui backend so uniformize lol for example members of teams, featuers etc. please fix all that amnd i fkined loved the theme in ppt before \
+
+i did not use Cursor IDE (AI) lol where did u more put lies ?
+
+INFO:     Application startup complete.
+INFO:     127.0.0.1:62019 - "GET /researchmind-landing.html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62019 - "GET /logo.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62020 - "GET /researchmind-business.docx HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62020 - "GET /researchmind-pitch.pptx HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62020 - "GET /researchmind-mvp/static/app.html HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62023 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62023 - "GET /api/papers HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62033 - "OPTIONS /api/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62033 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62036 - "POST /api/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62036 - "OPTIONS /api/synthesize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62036 - "POST /api/synthesize HTTP/1.1" 200 OK
+ agent 3 demo is not defined error
+
+so compare what u did write in lahttp://127.0.0.1:8000/researchmind-landing.html with other mvp, word ppt, dont invent things that are not implemented, second the agent 3 is not retainging per papaer the critiq also i dont like how graph is build Paper Analyzer
+Synthesis Agent
+Paper Critic
+● LIVE
+[← Landing page](http://127.0.0.1:8000/researchmind-landing.html)
+My Library (2)
+＋ Add Paper
+Capturing the Dynamics of Mental Well-Being: Adaptive and Maladaptive States in Social Media
+Computational Linguistics and Clinical Psychology · 4 concepts
+✕
+Cheap Ways of Extracting Clinical Markers from Texts
+Computational Linguistics and Clinical Psychology · 6 concepts
+✕
+◈ Run Synthesis (Agent 2)🔬 Critique Selected (Agent 3)
+🕸️ Knowledge Graph
+💡 Synthesis
+💬 Chat with Library
+🔬 Critique the content not how is build or loks bcs i put 2 paper https://aclanthology.org/2024.clpsych-1.25.pdf
+https://aclanthology.org/2025.clpsych-1.18.pdf which are alike and i dont got a nice answer or relashion
+
+continue and please start from layout unifomize all information 4 members, Teodor Mihailescu, Adela Danescu, Anastasia, Sandu, Selena Hurloi and go all and uniformize , keep themes, colors i like it even in files and make a profesional lanidng bcs rn is
+now the ui is broken, and redo please content of ui then content of ppt , then content of world logically, nice exaplin as a pm2 profession, gantt, sprints, wp and so on
+·  Adelina Danescu is Adela Danescu why so hard to have in ui 4 members speelled well, in docx and ppt and resepct also what is asked in the word MPA 2026 proiect.docx and uniformize all information ? and ui is broken and use also logo.png in ppt and docx and ui and name of [ResearchMind](http://127.0.0.1:8000/researchmind-landing.html#)
+add also in ui a link smt to git https://github.com/Teo1230/MPA/tree/main public acces and fix ui researchmind-landing.html and quality of http://127.0.0.1:8000/researchmind-mvp/static/app.html analyzing bcs i put https://aclanthology.org/2025.clpsych-1.18.pdf and https://aclanthology.org/2024.clpsych-1.25.pdf and i got low info syngery or commons and so on
+
+this is broken <section class="agents-strip" id="agents">
+  <div class="container">
+    <div class="sec-label rev" style="margin-bottom: 32px; translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">The Three Agents</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="stg">
+      <div class="agent-card" style="translate: none; rotate: none; scale: none; opacity: 1; transition: transform 0.4s;">
+        <div class="agent-num">AGENT 01</div>
+        <div class="agent-icon">⬡</div>
+        <div class="agent-name" style="color:var(--vl)">Paper Analyzer</div>
+        <div class="agent-desc">Ingests raw paper text and extracts structured knowledge: title, summary, key concepts, methodology, datasets, findings, and limitations — as typed JSON in seconds.</div>
+        <div class="agent-tag-row">
+          <span class="atag atag-v">Extraction</span>
+          <span class="atag atag-v">JSON output</span>
+          <span class="atag atag-v">LLaMA 3.1</span>
+        </div>
+      </div>
+      <div class="agent-card" style="translate: none; rotate: none; scale: none; opacity: 1; transition: transform 0.4s;">
+        <div class="agent-num">AGENT 02</div>
+        <div class="agent-icon">◈</div>
+        <div class="agent-name" style="color:var(--c)">Synthesis Agent</div>
+        <div class="agent-desc">Takes all Agent 1 outputs, identifies cross-paper themes and specific connections, surfaces research gaps, and generates 3 novel, testable hypotheses backed by evidence from your library.</div>
+        <div class="agent-tag-row">
+          <span class="atag atag-c">Cross-paper</span>
+          <span class="atag atag-c">Hypotheses</span>
+          <span class="atag atag-c">Gap analysis</span>
+        </div>
+      </div>
+      <div class="agent-card" style="translate: none; rotate: none; scale: none; opacity: 1; transition: transform 0.4s;">
+        <div class="agent-num">AGENT 03</div>
+        <div class="agent-icon">🔬</div>
+        <div class="agent-name" style="color:var(--am)">Paper Critic</div>
+        <div class="agent-desc">Critically evaluates each paper's methodology rigour, statistical soundness, reproducibility, and novelty. Returns a credibility score (0–10) with breakdown, weaknesses, and suggested improvements.</div>
+        <div class="agent-tag-row">
+          <span class="atag atag-am">Scoring 0–10</span>
+          <span class="atag atag-am">Weaknesses</span>
+          <span class="atag atag-am">Reproducibility</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> and this <section class="features" id="features">
+  <div class="container">
+    <div class="features-hd">
+      <div>
+        <div class="sec-label rev" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">Features</div>
+        <h2 class="sec-title rev" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">Research intelligence,<br>actually built.</h2>
+      </div>
+      <p class="sec-sub rev" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">Every feature below is live and working in the MVP — no mockups, no future roadmap items.</p>
+    </div>
+    <div class="bento stg">
+      <!-- Knowledge Graph – wide -->
+      <div class="bc bc-7" style="translate: none; rotate: none; scale: none; opacity: 1; transition: transform 0.4s;">
+        <div class="ci">🕸️</div>
+        <h3 class="ct">Knowledge Graph</h3>
+        <p class="cd">Every paper you add becomes a node. Shared concepts draw edges between papers, revealing thematic clusters and research overlaps at a glance. Built with D3.js — fully interactive.</p>
+        <div class="card-visual">
+          <canvas class="mini-canvas" id="mini-canvas" width="577" height="140"></canvas>
+        </div>
+      </div>
+      <!-- Synthesis -->
+      <div class="bc bc-5" style="translate: none; rotate: none; scale: none; opacity: 1; transition: transform 0.4s;">
+        <div class="ci">💡</div>
+        <h3 class="ct">Synthesis &amp; Hypotheses</h3>
+        <p class="cd">Agent 2 reads all your papers together and produces specific cross-paper connections, research gaps, and 3 novel testable hypotheses — citing paper titles in its reasoning.</p>
+        <div class="code-block" style="margin-top:20px;">
+          <div><span class="code-kw">→ Connection found</span></div>
+          <div style="color:var(--tm);font-size:11px;margin-top:5px;">"Both papers address mental well-being in social media using NLP — Paper A models adaptive states, Paper B extracts clinical markers cheaply."</div>
+          <br>
+          <div><span class="code-kw">→ Research gap</span></div>
+          <div style="color:var(--tm);font-size:11px;margin-top:5px;">No study combines adaptive state modelling with lightweight marker extraction for real-time clinical alerts.</div>
+        </div>
+      </div>
+      <!-- Paper Critique -->
+      <div class="bc bc-6" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+        <div class="ci">🔬</div>
+        <h3 class="ct">Paper Critique (Agent 3)</h3>
+        <p class="cd">Select any paper and get an instant quality assessment — methodology, statistics, reproducibility, novelty, and clarity — each scored 0–10 with a credibility verdict.</p>
+        <div class="score-demo" style="margin-top:18px;">
+          <div class="score-row">
+            <span class="score-label">Methodology</span>
+            <div class="score-bar-bg"><div class="score-bar-fill" style="width:88%;background:var(--em)"></div></div>
+            <span class="score-val">8.8</span>
+          </div>
+          <div class="score-row">
+            <span class="score-label">Reproducibility</span>
+            <div class="score-bar-bg"><div class="score-bar-fill" style="width:92%;background:var(--em)"></div></div>
+            <span class="score-val">9.2</span>
+          </div>
+          <div class="score-row">
+            <span class="score-label">Novelty</span>
+            <div class="score-bar-bg"><div class="score-bar-fill" style="width:75%;background:var(--am)"></div></div>
+            <span class="score-val">7.5</span>
+          </div>
+          <div class="score-row">
+            <span class="score-label">Stat. Soundness</span>
+            <div class="score-bar-bg"><div class="score-bar-fill" style="width:80%;background:var(--em)"></div></div>
+            <span class="score-val">8.0</span>
+          </div>
+        </div>
+      </div>
+      <!-- Smart Summaries -->
+      <div class="bc bc-3" style="grid-column: span 3; translate: none; rotate: none; scale: none; opacity: 1; transition: transform 0.4s;">
+        <div class="ci">⚡</div>
+        <h3 class="ct">Smart Summaries</h3>
+        <p class="cd">Agent 1 extracts title, summary, methodology, findings, and limitations from any paper URL or pasted text — structured JSON in seconds.</p>
+        <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="atag atag-v">Concepts</span>
+          <span class="atag atag-c">Findings</span>
+          <span class="atag atag-am">Limitations</span>
+        </div>
+      </div>
+      <!-- Library Chat -->
+      <div class="bc bc-5" style="translate: none; rotate: none; scale: none; transform: translate(0px, 0px); opacity: 1;">
+        <div class="ci">💬</div>
+        <h3 class="ct">Library Chat</h3>
+        <p class="cd">Ask any question across your entire paper library. The chat agent draws on every analyzed paper to give grounded, contextual answers — identifying which papers support each claim.</p>
+        <div style="margin-top:16px;font-family:var(--mono);font-size:11px;color:var(--ts);">
+          <div style="padding:8px 12px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid var(--bds);margin-bottom:6px;">
+            <span style="color:var(--vl);">You:</span> What evaluation metrics do these papers share?
+          </div>
+          <div style="padding:8px 12px;background:rgba(139,92,246,.06);border-radius:8px;border:1px solid rgba(139,92,246,.15);">
+            <span style="color:var(--c);">Agent:</span> Both papers use F1-score as the primary metric, with Paper 2 also reporting precision and recall separately across clinical categories…
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+now on http://127.0.0.1:8000/researchmind-landing.htmlwhen i scronn odwn and hover  all pannles go down and is ovelapping
